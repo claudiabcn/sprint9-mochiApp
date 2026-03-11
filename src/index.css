@@ -1,3 +1,61 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --font-size: 16px;
+  --background: #FFF5FA;
+  --foreground: #4A4A6A;
+  --card: #ffffff;
+  --card-foreground: #4A4A6A;
+  --popover: #ffffff;
+  --popover-foreground: #4A4A6A;
+  --primary: #C4A9FF;
+  --primary-foreground: #ffffff;
+  --secondary: #FFD6E8;
+  --secondary-foreground: #4A4A6A;
+  --muted: #F5E6FF;
+  --muted-foreground: #8B8BA5;
+  --accent: #D6EBFF;
+  --accent-foreground: #4A4A6A;
+  --destructive: #FF6B9D;
+  --destructive-foreground: #ffffff;
+  --border: rgba(196, 169, 255, 0.2);
+  --input: transparent;
+  --ring: #C4A9FF;
+  --radius: 1rem;
+}
+
+.dark {
+  --background: #1A1A2E;
+  --foreground: #F5E6FF;
+  --card: #252542;
+  --card-foreground: #F5E6FF;
+  --primary: #C4A9FF;
+  --primary-foreground: #1A1A2E;
+  --border: rgba(196, 169, 255, 0.2);
+  --ring: #C4A9FF;
+}
+
+@layer base {
+  * {
+    /* border-border ahora funcionará porque definimos 'border' en el config */
+    @apply border-border;
+    outline-color: var(--ring);
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  /* Usamos @apply con las clases estándar de Tailwind para evitar errores */
+  h1 { @apply text-2xl font-medium; line-height: 1.5; }
+  h2 { @apply text-xl font-medium; line-height: 1.5; }
+  h3 { @apply text-lg font-medium; line-height: 1.5; }
+  button { @apply text-base font-medium; }
+  input { @apply text-base font-normal; }
+}
