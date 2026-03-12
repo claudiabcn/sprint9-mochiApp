@@ -1,22 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/lib/supabase";
+import { loginWithUsername } from "../services/authService";
+import { validateLogin, type LoginFields, type LoginErrors } from "../validations/loginValidation";
 
 export function useLoginForm() {
   const navigate = useNavigate();
-  const [values, setValues] = useState({ username: "", password: "" });
-  const [errors, setErrors] = useState<{username?: string, password?: string, general?: string}>({});
+  const [values, setValues] = useState<LoginFields>({ username: "", password: "" });
+  const [errors, setErrors] = useState<LoginErrors>({});
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (field: "username" | "password") => (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (field: keyof LoginFields) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues((prev) => ({ ...prev, [field]: e.target.value }));
-    setErrors((prev) => ({ ...prev, [field]: undefined }));
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!values.username || !values.password) {
-      setErrors({ general: "Completa todos los campos" });
+
+    const validationErrors = validateLogin(values);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
@@ -24,29 +27,10 @@ export function useLoginForm() {
     setErrors({});
 
     try {
-      const { data: email, error: rpcError } = await supabase
-        .rpc("get_email_by_username", { p_username: values.username.trim().toLowerCase() });
-
-      if (rpcError || !email) {
-        console.error("RPC Error:", rpcError);
-        setErrors({ general: "Usuario no encontrado" });
-        return;
-      }
-
-      const { error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password: values.password,
-      });
-
-      if (authError) {
-        console.error("Auth Error:", authError.message);
-        setErrors({ general: "Contraseña incorrecta" });
-        return;
-      }
-
-      navigate("/home");
-    } catch (err) {
-      setErrors({ general: "Error de conexión" });
+      await loginWithUsername(values.username, values.password);
+      navigate("/dashboard");
+    } catch (error) {
+      setErrors({ general: (error as Error).message });
     } finally {
       setLoading(false);
     }

@@ -1,25 +1,35 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { LoginForm } from "@/features/auth/components/LoginForm";
 import { AuthGuard } from "@/features/auth/components/AuthGuard";
-import { Home } from "@/features/home/Home"; 
+
+
+function Dashboard() {
+  return <div className="p-8 text-[#4A4A6A]">Dashboard 🐰</div>;
+}
+
+function ForgotPassword() {
+  return <div className="p-8 text-[#4A4A6A]">Recuperar contraseña</div>;
+}
 
 export function AppRoutes() {
   return (
     <Routes>
+
       <Route
         path="/login"
         element={
-          <AuthGuard redirectIfAuthenticated redirectTo="/home">
+          <AuthGuard redirectIfAuthenticated redirectTo="/dashboard">
             <LoginForm />
           </AuthGuard>
         }
       />
+      
 
       <Route
-        path="/home"
+        path="/dashboard"
         element={
           <AuthGuard>
-            <Home />
+            <Dashboard />
           </AuthGuard>
         }
       />
