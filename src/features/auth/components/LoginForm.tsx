@@ -36,26 +36,44 @@ export function LoginForm() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium text-[#4A4A6A]">Usuario</label>
-            <div className="flex items-center gap-3 rounded-2xl px-4 py-3 bg-[#FAFAFF] border border-[#C4A9FF]/30">
+            <div className={`flex items-center gap-3 rounded-2xl px-4 py-3 bg-[#FAFAFF] border ${errors.username ? "border-[#FF6B9D]" : "border-[#C4A9FF]/30"}`}>
               <User size={18} className="text-[#C4A9FF]" />
-              <input type="text" value={values.username} onChange={handleChange("username")} 
-                placeholder="Tu usuario" className="flex-1 bg-transparent outline-none text-sm text-[#4A4A6A]" />
+              <input
+                type="text"
+                value={values.username}
+                onChange={handleChange("username")}
+                placeholder="Tu usuario"
+                className="flex-1 bg-transparent outline-none text-sm text-[#4A4A6A] placeholder:text-[#C0C0D8]"
+              />
             </div>
+            {errors.username && (
+              <span className="text-xs text-[#FF6B9D] pl-1">{errors.username}</span>
+            )}
           </div>
 
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium text-[#4A4A6A]">Contraseña</label>
-            <div className="flex items-center gap-3 rounded-2xl px-4 py-3 bg-[#FAFAFF] border border-[#C4A9FF]/30">
+            <div className={`flex items-center gap-3 rounded-2xl px-4 py-3 bg-[#FAFAFF] border ${errors.password ? "border-[#FF6B9D]" : "border-[#C4A9FF]/30"}`}>
               <Lock size={18} className="text-[#C4A9FF]" />
-              <input type={showPassword ? "text" : "password"} value={values.password} onChange={handleChange("password")}
-                placeholder="Tu contraseña" className="flex-1 bg-transparent outline-none text-sm text-[#4A4A6A]" />
+              <input
+                type={showPassword ? "text" : "password"}
+                value={values.password}
+                onChange={handleChange("password")}
+                placeholder="Tu contraseña"
+                className="flex-1 bg-transparent outline-none text-sm text-[#4A4A6A] placeholder:text-[#C0C0D8]"
+              />
               <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-[#C4A9FF]">
                 {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
               </button>
             </div>
+            {errors.password && (
+              <span className="text-xs text-[#FF6B9D] pl-1">{errors.password}</span>
+            )}
           </div>
 
-          <button type="submit" disabled={loading}
+          <button
+            type="submit"
+            disabled={loading}
             className="mt-2 w-full rounded-2xl py-3.5 text-white font-semibold transition-all hover:opacity-90 active:scale-95 disabled:opacity-50"
             style={{ background: "linear-gradient(90deg, #C4A9FF 0%, #FF9ECD 100%)" }}
           >

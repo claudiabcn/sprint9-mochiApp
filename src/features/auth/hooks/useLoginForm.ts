@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginWithUsername } from "../services/authService";
-import { validateLogin, type LoginFields, type LoginErrors } from "../validations/loginValidation";
+import { validateLoginFields, type LoginFields, type LoginErrors } from "../errors/authErrors";
 
 export function useLoginForm() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export function useLoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const validationErrors = validateLogin(values);
+    const validationErrors = validateLoginFields(values);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
