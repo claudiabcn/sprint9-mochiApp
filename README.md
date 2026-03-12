@@ -1,16 +1,90 @@
-# React + Vite
+# ⚡️ SPRINT 9: MochiApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a modern web space created to document my personal rehabilitation and recovery process. It’s more than a tracker; it’s a daily reflection on movement and healing. By logging every gym session, rehab appointment, and physical milestone, I’m building a visual story of how staying active impacts my evolution.
 
-Currently, two official plugins are available:
+## 🎯 Objectives:
+- Build a React app with navigation and routing across multiple views (Home, Map, Calendar, Charts)
+- Create and consume a real CRUD API connected to a database (Supabase) to manage recovery records
+- Integrate interactive tools: Leaflet maps for medical centers, FullCalendar for rehab scheduling, and Chart.js for progress tracking
+- Implement marker categories with filters on the map (Gyms, Physiotherapy, Hospitals)
+- Enable event and record editing from modals with real-time API synchronization
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 💻 Technology Stack:
+- **React** - **TypeScript** - **Vite** - **Supabase** - **Tailwind CSS**
+- **React Router** - **Leaflet** - **FullCalendar** - **Chart.js**
 
-## React Compiler
+## 📋 Files:
+```text
+├── src/
+│   ├── assets/
+│   ├── config/
+│   ├── features/
+│   │   ├── auth/       # Authentication logic & Login
+│   │   ├── home/       # Main dashboard
+│   │   └── records/    # CRUD for daily activity logs
+│   ├── lib/            # Supabase client configuration
+│   ├── routes/         # Application routing
+│   ├── shared/         # Reusable components, types, & utils
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠 Installation
 
-## Expanding the ESLint configuration
+### 1. Clone the Repository
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+``` bash
+git clone https://github.com/claudiabcn/mochiapp-recovery
+```
+
+### 2. Install Dependencies
+
+``` bash
+cd mochiapp-recovery
+npm install
+```
+
+### 3. Environment Variables
+
+Create a `.env` file in the root directory:
+
+``` env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### 4. Run Development Server
+
+``` bash
+npm run dev
+```
+
+The app will be available at:\
+**http://localhost:5173**
+
+------------------------------------------------------------------------
+
+## 📸 Demo
+
+Visit **MochiApp**
+
+https://mochi-app-claudiabcns-projects.vercel.app/login
+
+------------------------------------------------------------------------
+
+## ⭐ Learnings and Challenges
+
+This sprint pushed me to transform a technical requirement into a
+meaningful personal tool. Integrating complex libraries like **Leaflet**
+and **Chart.js** taught me that the real challenge isn't just making
+features work --- it's ensuring the data accurately reflects a sensitive
+process like physical recovery.
+
+I focused heavily on the **Single Responsibility Principle**, separating
+my Supabase services from the UI logic to keep the codebase maintainable
+as the project grows.
+
+The biggest architectural shift was managing the state between the
+calendar and the progress charts, ensuring that every logged rehab
+session immediately updated my visual evolution.
+
