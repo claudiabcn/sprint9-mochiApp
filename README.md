@@ -28,7 +28,7 @@ This project is a modern web space created to document my personal rehabilitatio
 │   ├── App.tsx
 │   ├── index.css
 │   └── main.tsx
-
+```
 ## 🛠 Installation
 
 ### 1. Clone the Repository
@@ -68,7 +68,7 @@ The app will be available at:\
 
 Visit **MochiApp**
 
-https://mochi-app-claudiabcns-projects.vercel.app/login
+https://mochi-app-claudiabcns-projects.vercel.app
 
 ------------------------------------------------------------------------
 
