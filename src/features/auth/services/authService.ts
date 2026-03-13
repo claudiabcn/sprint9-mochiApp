@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { getAuthErrorMessage } from "../errors/authErrors";
+import { getAuthErrorMessage } from "../../../utils/authErrors";
 
 export async function loginWithUsername(username: string, password: string): Promise<void> {
   const { data: email, error: rpcError } = await supabase.rpc(

@@ -15,9 +15,8 @@ export function Header() {
   const username = user?.user_metadata?.username ?? user?.email ?? "Usuario";
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-[#C4A9FF]/20">
+    <header className="sticky top-0 z-40 w-full bg-white border-b border-[#C4A9FF]/20">
       <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-
         <div className="flex items-center gap-2.5">
           <div
             className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -49,7 +48,6 @@ export function Header() {
             <span className="hidden sm:block">Salir</span>
           </button>
         </div>
-
       </div>
     </header>
   );

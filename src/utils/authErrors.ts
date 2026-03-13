@@ -13,13 +13,12 @@ export function validateLoginFields(values: LoginFields): LoginErrors {
   const errors: LoginErrors = {};
 
   if (!values.username.trim()) {
-    errors.username = "Ingresa tu usuario🐰";
+    errors.username = "¿Cómo te llamas? Ingresa tu usuario 🐰";
   }
 
   if (!values.password) {
-    errors.password = "Ingresa tu contraseña🐰";
-  }
-
+    errors.password = "Ingresa tu contraseña";
+  } 
   return errors;
 }
 

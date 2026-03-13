@@ -39,7 +39,6 @@
 
 @layer base {
   * {
-    /* border-border ahora funcionará porque definimos 'border' en el config */
     @apply border-border;
     outline-color: var(--ring);
   }
@@ -52,7 +51,6 @@
     font-size: var(--font-size);
   }
 
-  /* Usamos @apply con las clases estándar de Tailwind para evitar errores */
   h1 { @apply text-2xl font-medium; line-height: 1.5; }
   h2 { @apply text-xl font-medium; line-height: 1.5; }
   h3 { @apply text-lg font-medium; line-height: 1.5; }
