@@ -1,11 +1,11 @@
 # ⚡️ SPRINT 9: MochiApp
 
-This project is a modern web space created to document my personal rehabilitation and recovery process. It’s more than a tracker; it’s a daily reflection on movement and healing. By logging every gym session, rehab appointment, and physical milestone, I’m building a visual story of how staying active impacts my evolution.
+This project is a modern web space created to document my personal rehabilitation and recovery process. It’s more than a tracker; it’s a daily reflection on movement and healing. By logging every gym session, rehabilitation appointment, and physical milestone, I’m building a visual story of how staying active impacts my evolution.
 
 ## 🎯 Objectives:
 - Build a React app with navigation and routing across multiple views (Home, Map, Calendar, Charts)
 - Create and consume a real CRUD API connected to a database (Supabase) to manage recovery records
-- Integrate interactive tools: Leaflet maps for medical centers, FullCalendar for rehab scheduling, and Chart.js for progress tracking
+- Integrate interactive tools: Leaflet maps for medical centers, FullCalendar for rehabilitation scheduling, and Chart.js for progress tracking
 - Implement marker categories with filters on the map (Gyms, Physiotherapy, Hospitals)
 - Enable event and record editing from modals with real-time API synchronization
 
@@ -87,6 +87,6 @@ my Supabase services from the UI logic to keep the codebase maintainable
 as the project grows.
 
 The biggest architectural shift was managing the state between the
-calendar and the progress charts, ensuring that every logged rehab
+calendar and the progress charts, ensuring that every logged rehabilitation
 session immediately updated my visual evolution.
 

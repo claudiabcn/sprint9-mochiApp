@@ -12,7 +12,8 @@ export function Header() {
     navigate("/login");
   };
 
-  const username = user?.user_metadata?.username ?? user?.email ?? "Usuario";
+  const displayName = user?.user_metadata?.username ?? " ";
+  const greeting = `¡Hola ${displayName}🐰!`;
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white border-b border-[#C4A9FF]/20">
@@ -33,20 +34,21 @@ export function Header() {
           </div>
           <div className="leading-tight">
             <span className="font-bold text-sm" style={{ color: "#C4A9FF" }}>mochiApp</span>
-            <p className="text-[10px] text-[#8B8BA5] -mt-0.5">Tu camino a la recuperación</p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="text-sm font-medium text-[#4A4A6A] hidden sm:block">{username}</span>
+          <span className="text-sm font-medium text-[#4A4A6A] hidden sm:block">
+            {greeting}
+          </span>
+          
           <button
             onClick={handleSignOut}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm text-[#8B8BA5] hover:text-[#FF6B9D] hover:bg-[#FFF0F5] transition-all duration-200"
             title="Cerrar sesión"
           >
             <LogOut size={15} />
-            <span className="hidden sm:block">Salir</span>
-          </button>
+            </button>
         </div>
       </div>
     </header>

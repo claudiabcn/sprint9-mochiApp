@@ -11,17 +11,19 @@ export interface DizzinessRecord {
 }
 
 export function sliderToIntensity(value: number): Intensity {
-  if (value <= 3) return "None";
-  if (value <= 6) return "Low";
-  return "High";
+  if (value === 0) return "None";
+  if (value === 1) return "Low";
+  return "High"; 
 }
 
 export function intensityLabel(intensity: Intensity): string {
-  if (intensity === "None") return "Sin molestias";
-  if (intensity === "Low") return "Molestias leves";
-  return "Molestias altas";
+  const labels: Record<Intensity, string> = {
+    "None": "Ninguno",
+    "Low": "Algunos",
+    "High": "Muchos"
+  };
+  return labels[intensity] || labels["None"];
 }
-
 export async function getTodayCheckin(userId: string): Promise<DizzinessRecord | null> {
   const today = new Date().toISOString().split("T")[0];
   const { data, error } = await supabase

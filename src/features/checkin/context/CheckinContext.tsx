@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useAuth } from "@/features/auth/context/AuthContext";
-import { getTodayCheckin, saveFullCheckin } from "@/features/checkin/services/checkinService";
+import { getTodayCheckin, saveFullCheckin, Intensity } from "@/features/checkin/services/checkinService";
 import { INITIAL_STATE, type CheckinFormState } from "@/utils/checkinTypes";
 
 interface CheckinContextType {
@@ -32,17 +32,24 @@ export function CheckinProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!user) return;
-    getTodayCheckin(user.id).then((r) => {
-      if (!r) return;
-      setTodayDone(true);
-      setForm((prev) => ({
-        ...prev,
-        dizziness_intensity: r.intensity,
-        dizziness_slider: r.intensity === "None" ? 2 : r.intensity === "Low" ? 5 : 8,
-      }));
-    });
-  }, [user]);
+  if (!user) return;
+  getTodayCheckin(user.id).then((r) => {
+    if (!r) return;
+    setTodayDone(true);
+    
+    const intensityToSlider: Record<string, number> = {
+      "None": 0,
+      "Low": 1,
+      "High": 2
+    };
+
+    setForm((prev) => ({
+      ...prev,
+      dizziness_intensity: r.intensity as Intensity,
+      dizziness_slider: intensityToSlider[r.intensity] ?? 0,
+    }));
+  });
+}, [user]);
 
   const patch = (partial: Partial<CheckinFormState>) =>
     setForm((prev) => ({ ...prev, ...partial }));

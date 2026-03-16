@@ -51,7 +51,7 @@ export function HomePage() {
             {[
               { label: "Mochiterapia", desc: "Tu espacio de bienestar emocional" },
               { label: "Re-evolución", desc: "Observa tu progreso y mejora continua" },
-              { label: "Tipos de ejercicio de rehab", desc: "Explora y practica tus ejercicios" },
+              { label: "Tipos de ejercicio de rehabilitación", desc: "Explora y practica tus ejercicios" },
             ].map(({ label, desc }) => (
               <div
                 key={label}

@@ -29,9 +29,9 @@ export function Step5Summary({ form }: Props) {
       <p className="text-sm text-[#8B8BA5] mb-1">Revisa tu check-in antes de guardar</p>
 
       <div className="rounded-2xl bg-[#FAFAFF] border border-[#C4A9FF]/20 px-4 py-2">
-        <Row label="Vértigos" value={`${form.dizziness_slider}/10 · ${intensityLabel(form.dizziness_intensity)}`} />
+        <Row label="Vértigos" value={`${intensityLabel(form.dizziness_intensity)}`} />
         <Row
-          label="Rehab vestibular"
+          label="Rehabilitación vestibular"
           value={form.had_vestibular && vestibularCenter
             ? `${vestibularCenter} · ${form.vestibular_session!.duration} min`
             : "No"}

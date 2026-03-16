@@ -29,7 +29,7 @@ export const VESTIBULAR_CENTERS = [
   { id: 1, name: "IRVE", duration: 60 },
   { id: 2, name: "CAP", duration: 30 },
   { id: 3, name: "Cos & Essència", duration: 45 },
-  { id: 4, name: "Casa", duration: 10 },
+  { id: 4, name: "Casa", duration: 15 },
 ];
 
 export const PHYSIO_CENTERS = [
@@ -39,6 +39,7 @@ export const PHYSIO_CENTERS = [
 ];
 
 export const ACTIVITIES = [
+  { name: "Flexi", center_id: 8, center_name: "Casa", duration: 30 },
   { name: "Padel", center_id: 8, center_name: "FES Padel Can Dragó", duration: 60 },
   { name: "Twerk", center_id: 9, center_name: "Centre Cívic Sagrada Família", duration: 90 },
   { name: "Dirigida", center_id: 10, center_name: "Eurofitness Can Dragó", duration: 45 },

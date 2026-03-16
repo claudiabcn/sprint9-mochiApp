@@ -7,7 +7,7 @@ import { Step3Physio } from "./Step3Physio";
 import { Step4Activity } from "./Step4Activity";
 import { Step5Summary } from "./Step5Summary";
 
-const STEP_TITLES = ["Vértigos", "Rehab vestibular", "Fisioterapia", "Actividad física", "Resumen"];
+const STEP_TITLES = ["Vértigos", "Rehabilitación vestibular", "Fisioterapia", "Actividad física", "Resumen"];
 
 export function CheckinModal() {
   const { isOpen, close, step, next, prev, totalSteps, form, patch, loading, error, handleSave } = useCheckinContext();

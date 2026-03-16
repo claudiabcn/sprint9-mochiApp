@@ -63,7 +63,6 @@ export function Step2Vestibular({ form, onChange }: Props) {
                   }`}
                 >
                   {c.name}
-                  <span className="block text-[10px] opacity-60">{c.duration} min habitual</span>
                 </button>
               ))}
             </div>
