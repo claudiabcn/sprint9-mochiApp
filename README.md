@@ -19,12 +19,14 @@ This project is a modern web space created to document my personal rehabilitatio
 │   ├── assets/
 │   ├── config/
 │   ├── features/
-│   │   ├── auth/       # Authentication logic & Login
-│   │   ├── home/       # Main dashboard
-│   │   └── records/    # CRUD for daily activity logs
-│   ├── lib/            # Supabase client configuration
-│   ├── routes/         # Application routing
-│   ├── shared/         # Reusable components, types, & utils
+│   │   ├── auth/       
+│   │   ├── home/       
+│   │   └── chekin   
+│   │   └── records/  
+│   ├── layouts/      
+│   ├── lib/            
+│   ├── routes/         
+│   ├── utils/         
 │   ├── App.tsx
 │   ├── index.css
 │   └── main.tsx
