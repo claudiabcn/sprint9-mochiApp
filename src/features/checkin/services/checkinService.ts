@@ -16,14 +16,7 @@ export function sliderToIntensity(value: number): Intensity {
   return "High"; 
 }
 
-export function intensityLabel(intensity: Intensity): string {
-  const labels: Record<Intensity, string> = {
-    "None": "Ninguno",
-    "Low": "Algunos",
-    "High": "Muchos"
-  };
-  return labels[intensity] || labels["None"];
-}
+
 export async function getTodayCheckin(userId: string): Promise<DizzinessRecord | null> {
   const today = new Date().toISOString().split("T")[0];
   const { data, error } = await supabase
@@ -32,24 +25,31 @@ export async function getTodayCheckin(userId: string): Promise<DizzinessRecord |
     .eq("user_id", userId)
     .eq("date_recorded", today)
     .maybeSingle();
+    
   if (error) throw new Error("Error al obtener el check-in de hoy");
   return data;
 }
 
-async function saveDizziness(userId: string, intensity: Intensity): Promise<void> {
+export async function saveFullCheckin(userId: string, form: CheckinFormState): Promise<void> {
   const today = new Date().toISOString().split("T")[0];
-  const { error } = await supabase
+
+
+  const { error: dizzinessError } = await supabase
     .from("dizziness")
     .upsert(
-      { user_id: userId, date_recorded: today, intensity },
+      { user_id: userId, date_recorded: today, intensity: form.dizziness_intensity },
       { onConflict: "user_id,date_recorded" }
     );
-  if (error) throw new Error("Error al guardar los vértigos");
-}
+  if (dizzinessError) throw new Error("Error al guardar los vértigos");
 
-async function saveSessions(userId: string, sessions: SessionEntry[]): Promise<void> {
+
+  const sessions: SessionEntry[] = [];
+  if (form.had_vestibular && form.vestibular_session) sessions.push(form.vestibular_session);
+  if (form.had_physio && form.physio_session) sessions.push(form.physio_session);
+  if (form.had_activity) sessions.push(...form.activity_sessions);
+
   if (sessions.length === 0) return;
-  const today = new Date().toISOString().split("T")[0];
+
 
   await supabase
     .from("sessions")
@@ -68,17 +68,6 @@ async function saveSessions(userId: string, sessions: SessionEntry[]): Promise<v
     date_recorded: today,
   }));
 
-  const { error } = await supabase.from("sessions").insert(rows);
-  if (error) throw new Error("Error al guardar las sesiones");
-}
-
-export async function saveFullCheckin(userId: string, form: CheckinFormState): Promise<void> {
-  await saveDizziness(userId, form.dizziness_intensity);
-
-  const sessions: SessionEntry[] = [];
-  if (form.had_vestibular && form.vestibular_session) sessions.push(form.vestibular_session);
-  if (form.had_physio && form.physio_session) sessions.push(form.physio_session);
-  if (form.had_activity) sessions.push(...form.activity_sessions);
-
-  await saveSessions(userId, sessions);
+  const { error: sessionsError } = await supabase.from("sessions").insert(rows);
+  if (sessionsError) throw new Error("Error al guardar las sesiones");
 }

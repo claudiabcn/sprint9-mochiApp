@@ -1,10 +1,6 @@
-import { ReactNode } from "react";
 import { Header } from "@/layouts/Header";
 import { Footer } from "@/layouts/Footer";
-
-interface MainLayoutProps {
-  children: ReactNode;
-}
+import { MainLayoutProps } from "./utils/layoutsTypes";
 
 export function MainLayout({ children }: MainLayoutProps) {
   return (

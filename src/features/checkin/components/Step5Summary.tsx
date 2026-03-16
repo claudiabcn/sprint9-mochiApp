@@ -1,6 +1,6 @@
-import { intensityLabel } from "../services/checkinService";
 import type { CheckinFormState } from "../../../utils/checkinTypes";
 import { VESTIBULAR_CENTERS, PHYSIO_CENTERS } from "../../../utils/checkinTypes";
+import { CHECKIN_TEXTS } from "../utils/checkinTexts";
 
 interface Props {
   form: CheckinFormState;
@@ -29,7 +29,8 @@ export function Step5Summary({ form }: Props) {
       <p className="text-sm text-[#8B8BA5] mb-1">Revisa tu check-in antes de guardar</p>
 
       <div className="rounded-2xl bg-[#FAFAFF] border border-[#C4A9FF]/20 px-4 py-2">
-        <Row label="Vértigos" value={`${intensityLabel(form.dizziness_intensity)}`} />
+        <Row label="Vértigos" 
+  value={CHECKIN_TEXTS.INTENSITY_LABELS[form.dizziness_intensity]} />
         <Row
           label="Rehabilitación vestibular"
           value={form.had_vestibular && vestibularCenter

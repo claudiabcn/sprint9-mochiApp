@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginWithUsername } from "../services/authService";
-import { validateLoginFields, type LoginFields, type LoginErrors } from "../../../utils/authErrors";
+import { validateLoginFields, type LoginFields, type LoginErrors } from "../utils/authErrors";
 
 export function useLoginForm() {
   const navigate = useNavigate();

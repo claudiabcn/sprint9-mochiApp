@@ -1,5 +1,6 @@
-import { sliderToIntensity, intensityLabel } from "../services/checkinService";
+import { sliderToIntensity } from "../services/checkinService";
 import type { CheckinFormState } from "../../../utils/checkinTypes";
+import { CHECKIN_TEXTS } from "../utils/checkinTexts";
 
 function moodEmoji(value: number) {
   if (value === 0) return "😊";
@@ -39,9 +40,9 @@ export function Step1Dizziness({ form, onChange }: { form: CheckinFormState, onC
         />
 
         <div className="flex justify-center mt-4">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#C4A9FF] bg-[#C4A9FF]/10 px-3 py-1 rounded-full">
-            {intensityLabel(form.dizziness_intensity)}
-          </span>
+<span className="text-xs font-bold uppercase tracking-wider text-[#C4A9FF] bg-[#C4A9FF]/10 px-3 py-1 rounded-full">
+    {CHECKIN_TEXTS.INTENSITY_LABELS[form.dizziness_intensity]}
+  </span>
         </div>
       </div>
     </div>

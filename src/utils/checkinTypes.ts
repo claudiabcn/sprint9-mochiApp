@@ -25,6 +25,12 @@ export interface CheckinFormState {
   activity_sessions: SessionEntry[];
 }
 
+export interface Center {
+  id: number;
+  name: string;
+  duration: number;
+}
+
 export const VESTIBULAR_CENTERS = [
   { id: 1, name: "IRVE", duration: 60 },
   { id: 2, name: "CAP", duration: 30 },
@@ -51,7 +57,7 @@ export const DURATIONS = [15, 30, 45, 60, 75, 90];
 
 export const INITIAL_STATE: CheckinFormState = {
   dizziness_intensity: "None",
-  dizziness_slider: 2,
+  dizziness_slider: 0,
   had_vestibular: false,
   vestibular_session: null,
   had_physio: false,

@@ -1,6 +1,6 @@
 import { useCheckinContext } from "@/features/checkin/context/CheckinContext";
 import { CheckinModal } from "./CheckinModal";
-import { intensityLabel } from "@/features/checkin/services/checkinService";
+import { CHECKIN_TEXTS } from "../utils/checkinTexts";
 
 export function CheckinSection() {
   const { open, todayDone, form } = useCheckinContext();
@@ -13,13 +13,13 @@ export function CheckinSection() {
         onClick={open}
       >
         <div>
-          <h3 className="font-semibold text-[#4A4A6A] text-sm mb-0.5">¿Cómo te sientes hoy?</h3>
+          <h3 className="font-semibold text-[#4A4A6A] text-sm mb-0.5">¿Qué tal hoy?</h3>
           {todayDone ? (
             <p className="text-xs text-[#C4A9FF] font-medium">
-              ✓ Registrado hoy · {intensityLabel(form.dizziness_intensity)}
+              ✓ Registrado hoy · {CHECKIN_TEXTS.INTENSITY_LABELS[form.dizziness_intensity]}
             </p>
           ) : (
-            <p className="text-xs text-[#8B8BA5]">Registra tu estado y progreso diario</p>
+            <p className="text-xs text-[#8B8BA5]">Registra tu estado y actividad diaria</p>
           )}
         </div>
         <button

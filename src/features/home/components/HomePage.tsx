@@ -3,9 +3,12 @@ import { useAuth } from "@/features/auth/context/AuthContext";
 import { CheckinSection } from "@/features/checkin/components/CheckinSection";
 import { CheckinModal } from "@/features/checkin/components/CheckinModal";
 import { CheckinProvider } from "@/features/checkin/context/CheckinContext";
+import { HOME_TEXTS } from "../utils/homeTexts";
 
 export function HomePage() {
   const { user } = useAuth();
+  const { WELCOME, SECTIONS, CARDS, CARD_ACTION } = HOME_TEXTS;
+  
   const username = user?.user_metadata?.username ?? "amiga";
 
   return (
@@ -16,8 +19,8 @@ export function HomePage() {
           className="w-full rounded-3xl px-8 py-7 mb-8 text-white"
           style={{ background: "linear-gradient(135deg, #C4A9FF 0%, #FF9ECD 100%)" }}
         >
-          <h1 className="text-2xl font-bold mb-1">¡Bienvenida de vuelta, {username}! 🐰</h1>
-          <p className="text-white/80 text-sm">Sigue adelante con tu rutina diaria. ¡Cada paso cuenta!</p>
+          <h1 className="text-2xl font-bold mb-1">{WELCOME.TITLE(username)}</h1>
+          <p className="text-white/80 text-sm">{WELCOME.SUBTITLE}</p>
         </section>
 
         <section className="mb-8">
@@ -27,10 +30,10 @@ export function HomePage() {
                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
               </svg>
             </span>
-            Destacados
+            {SECTIONS.STATS_TITLE}
           </h2>
           <div className="rounded-2xl bg-white/60 border border-[#C4A9FF]/20 px-6 py-8 text-center text-sm text-[#8B8BA5]">
-            📊 Aquí irán tus estadísticas — próximo paso
+            {SECTIONS.STATS_PLACEHOLDER}
           </div>
         </section>
 
@@ -41,35 +44,31 @@ export function HomePage() {
                 <path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
               </svg>
             </span>
-            Check-in Diario
+            {SECTIONS.CHECKIN_TITLE}
           </h2>
           <CheckinSection />
         </section>
 
         <section>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {[
-              { label: "Mochiterapia", desc: "Tu espacio de bienestar emocional" },
-              { label: "Re-evolución", desc: "Observa tu progreso y mejora continua" },
-              { label: "Tipos de ejercicio de rehabilitación", desc: "Explora y practica tus ejercicios" },
-            ].map(({ label, desc }) => (
+            {CARDS.map(({ label, desc, icon }) => (
               <div
                 key={label}
                 className="rounded-2xl bg-white border border-[#C4A9FF]/20 p-5 flex flex-col gap-2 cursor-pointer hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
               >
                 <div className="w-9 h-9 rounded-xl bg-[#F5E6FF] flex items-center justify-center mb-1">
-                  <span className="text-[#C4A9FF] text-base">🐰</span>
+                  <span className="text-[#C4A9FF] text-base">{icon}</span>
                 </div>
                 <h3 className="font-semibold text-[#4A4A6A] text-sm">{label}</h3>
                 <p className="text-xs text-[#8B8BA5]">{desc}</p>
-                <span className="text-xs text-[#C4A9FF] font-medium mt-1">Entrar →</span>
+                <span className="text-xs text-[#C4A9FF] font-medium mt-1">{CARD_ACTION}</span>
               </div>
             ))}
           </div>
         </section>
 
-    </MainLayout>
-    <CheckinModal />
+      </MainLayout>
+      <CheckinModal />
     </CheckinProvider>
   );
 }
