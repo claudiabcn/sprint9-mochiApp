@@ -1,24 +1,32 @@
 import { supabase } from "@/lib/supabase";
-import { getAuthErrorMessage } from "@/features/auth/utils/authErrors";
 
-export async function loginWithUsername(username: string, password: string): Promise<void> {
+export async function loginWithUsername(
+  username: string,
+  password: string,
+): Promise<void> {
   const { data: email, error: rpcError } = await supabase.rpc(
     "get_email_by_username",
-    { p_username: username.trim().toLowerCase() }
+    { p_username: username.trim().toLowerCase() },
   );
 
   if (rpcError || !email) {
-    throw new Error("Usuario o contraseña incorrectos");
+    throw new Error("INVALID_CREDENTIALS");
   }
 
-  const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+  const { error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
   if (signInError) {
-    throw new Error(getAuthErrorMessage(signInError));
+    throw signInError;
   }
 }
 
 export async function signOut(): Promise<void> {
   const { error } = await supabase.auth.signOut();
-  if (error) throw new Error(getAuthErrorMessage(error));
+
+  if (error) {
+    throw error;
+  }
 }

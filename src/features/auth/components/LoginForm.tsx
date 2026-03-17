@@ -2,6 +2,7 @@ import { Eye, EyeOff, Lock, User } from "lucide-react";
 import { useState } from "react";
 import { useLoginForm } from "@/features/auth/hooks/useLoginForm";
 import { Button } from "@/shared/components/Button";
+import { AUTH_LABELS } from "@/features/auth/utils/authTexts";
 
 export function LoginForm() {
   const { values, errors, loading, handleChange, handleSubmit } = useLoginForm();
@@ -30,10 +31,10 @@ export function LoginForm() {
           </div>
 
           <h1 className="text-2xl font-bold" style={{ color: "#C4A9FF" }}>
-            mochiApp
+            {AUTH_LABELS.APP_NAME}
           </h1>
           <p className="text-sm mt-1 text-[#8B8BA5]">
-            Inicia sesión para continuar
+            {AUTH_LABELS.LOGIN_SUBTITLE}
           </p>
         </div>
 
@@ -47,7 +48,7 @@ export function LoginForm() {
 
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium text-[#4A4A6A]">
-              Usuario
+              {AUTH_LABELS.USER_LABEL}
             </label>
 
             <div
@@ -61,7 +62,7 @@ export function LoginForm() {
                 type="text"
                 value={values.username}
                 onChange={handleChange("username")}
-                placeholder="Tu usuario"
+                placeholder={AUTH_LABELS.USER_PLACEHOLDER}
                 className="flex-1 bg-transparent outline-none text-sm text-[#4A4A6A] placeholder:text-[#C0C0D8]"
               />
             </div>
@@ -75,7 +76,7 @@ export function LoginForm() {
 
           <div className="flex flex-col gap-1">
             <label className="text-sm font-medium text-[#4A4A6A]">
-              Contraseña
+              {AUTH_LABELS.PASSWORD_LABEL}
             </label>
 
             <div
@@ -89,7 +90,7 @@ export function LoginForm() {
                 type={showPassword ? "text" : "password"}
                 value={values.password}
                 onChange={handleChange("password")}
-                placeholder="Tu contraseña"
+                placeholder={AUTH_LABELS.PASSWORD_PLACEHOLDER}
                 className="flex-1 bg-transparent outline-none text-sm text-[#4A4A6A] placeholder:text-[#C0C0D8]"
               />
 
@@ -115,7 +116,9 @@ export function LoginForm() {
             disabled={loading}
             className="mt-2 w-full py-3.5"
           >
-            {loading ? "Cargando..." : "Iniciar sesión"}
+            {loading
+              ? AUTH_LABELS.LOADING_BUTTON
+              : AUTH_LABELS.LOGIN_BUTTON}
           </Button>
         </form>
       </div>

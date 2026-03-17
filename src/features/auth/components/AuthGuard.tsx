@@ -1,12 +1,6 @@
-import { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "@/features/auth/context/AuthContext";
-
-interface AuthGuardProps {
-  children: ReactNode;
-  redirectIfAuthenticated?: boolean;
-  redirectTo?: string;
-}
+import { AuthGuardProps } from "@/features/auth/utils/authTypes";
 
 export function AuthGuard({
   children,
