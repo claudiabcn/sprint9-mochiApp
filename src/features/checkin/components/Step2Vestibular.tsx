@@ -1,4 +1,5 @@
-import { VESTIBULAR_CENTERS, DURATIONS, type CheckinFormState } from "../../../utils/checkinTypes";
+import { VESTIBULAR_CENTERS, DURATIONS } from "../utils/checkinTexts";
+import {  type CheckinFormState } from "../utils/checkinTypes";
 
 interface Props {
   form: CheckinFormState;

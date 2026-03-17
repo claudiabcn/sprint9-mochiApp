@@ -1,5 +1,6 @@
-import type { CheckinFormState } from "../../../utils/checkinTypes";
-import { VESTIBULAR_CENTERS, PHYSIO_CENTERS } from "../../../utils/checkinTypes";
+
+import { VESTIBULAR_CENTERS, PHYSIO_CENTERS } from "../utils/checkinTexts";
+import type { CheckinFormState } from "../utils/checkinTypes";
 import { CHECKIN_TEXTS } from "../utils/checkinTexts";
 
 interface Props {

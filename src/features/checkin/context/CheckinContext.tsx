@@ -1,7 +1,8 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useAuth } from "@/features/auth/context/AuthContext";
 import { getTodayCheckin, saveFullCheckin, Intensity } from "@/features/checkin/services/checkinService";
-import { INITIAL_STATE, type CheckinFormState } from "@/utils/checkinTypes";
+import { INITIAL_STATE } from "../utils/checkinTexts";
+import {  type CheckinFormState } from "../utils/checkinTypes";
 
 interface CheckinContextType {
   isOpen: boolean;

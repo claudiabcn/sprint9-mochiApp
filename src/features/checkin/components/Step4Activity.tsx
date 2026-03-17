@@ -1,4 +1,5 @@
-import { ACTIVITIES, DURATIONS, type CheckinFormState, type SessionEntry } from "../../../utils/checkinTypes";
+import { type CheckinFormState, type SessionEntry } from "../utils/checkinTypes";
+import { ACTIVITIES, DURATIONS} from "../utils/checkinTexts";
 
 interface Props {
   form: CheckinFormState;
