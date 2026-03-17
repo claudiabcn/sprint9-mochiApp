@@ -1,5 +1,6 @@
-import { VESTIBULAR_CENTERS, DURATIONS } from "../utils/checkinTexts";
-import {  type CheckinFormState } from "../utils/checkinTypes";
+import { VESTIBULAR_CENTERS, DURATIONS } from "@/features/checkin/utils/checkinTexts";
+import { type CheckinFormState } from "@/features/checkin/utils/checkinTypes";
+import { Button } from "@/shared/components/Button";
 
 interface Props {
   form: CheckinFormState;
@@ -33,18 +34,17 @@ export function Step2Vestibular({ form, onChange }: Props) {
 
       <div className="flex gap-3">
         {[true, false].map((val) => (
-          <button
+          <Button
+            variant="secondary"
+            size="sm"
             key={String(val)}
             onClick={() => handleToggle(val)}
-            className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all ${
-              form.had_vestibular === val
-                ? "text-white shadow-sm"
-                : "bg-[#F5F5FF] text-[#8B8BA5]"
+            className={`flex-1 text-sm font-medium transition-all ${
+              form.had_vestibular === val ? "bg-gradient-to-r from-[#C4A9FF] to-[#FF9ECD] text-white" : "bg-[#F5F5FF] text-[#8B8BA5]"
             }`}
-            style={form.had_vestibular === val ? { background: "linear-gradient(90deg, #C4A9FF, #FF9ECD)" } : {}}
           >
             {val ? "✓ Sí" : "✗ No"}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -54,17 +54,15 @@ export function Step2Vestibular({ form, onChange }: Props) {
             <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">Centro</label>
             <div className="grid grid-cols-2 gap-2">
               {VESTIBULAR_CENTERS.map((c) => (
-                <button
+                <Button
+                  variant={session.center_id === c.id ? "primary" : "secondary"}
+                  size="sm"
                   key={c.id}
                   onClick={() => handleCenter(c.id)}
-                  className={`py-2 px-3 rounded-xl text-xs font-medium text-left transition-all ${
-                    session.center_id === c.id
-                      ? "bg-[#EDE6FF] text-[#C4A9FF] border border-[#C4A9FF]/40"
-                      : "bg-[#F5F5FF] text-[#8B8BA5] border border-transparent"
-                  }`}
+                  className={`text-xs font-medium text-left transition-all ${session.center_id === c.id ? "text-white" : "bg-[#F5F5FF] text-[#8B8BA5] border border-transparent"}`}
                 >
                   {c.name}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
@@ -73,18 +71,17 @@ export function Step2Vestibular({ form, onChange }: Props) {
             <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">Duración</label>
             <div className="flex flex-wrap gap-2">
               {DURATIONS.map((d) => (
-                <button
+                <Button
+                  variant="secondary"
+                  size="sm"
                   key={d}
                   onClick={() => handleDuration(d)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                    session.duration === d
-                      ? "text-white"
-                      : "bg-[#F5F5FF] text-[#8B8BA5]"
+                  className={`text-xs font-medium transition-all ${
+                    session.duration === d ? "bg-gradient-to-r from-[#C4A9FF] to-[#FF9ECD] text-white" : "bg-[#F5F5FF] text-[#8B8BA5]"
                   }`}
-                  style={session.duration === d ? { background: "linear-gradient(90deg, #C4A9FF, #FF9ECD)" } : {}}
                 >
                   {d} min
-                </button>
+                </Button>
               ))}
             </div>
           </div>

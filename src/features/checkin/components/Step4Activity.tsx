@@ -1,5 +1,7 @@
-import { type CheckinFormState, type SessionEntry } from "../utils/checkinTypes";
-import { ACTIVITIES, DURATIONS} from "../utils/checkinTexts";
+import { Button } from "@/shared/components/Button";
+import { type CheckinFormState, type SessionEntry } from "@/features/checkin/utils/checkinTypes";
+import { ACTIVITIES, DURATIONS} from "@/features/checkin/utils/checkinTexts";
+import { Trash } from "lucide-react";
 
 interface Props {
   form: CheckinFormState;
@@ -38,16 +40,17 @@ export function Step4Activity({ form, onChange }: Props) {
 
       <div className="flex gap-3">
         {[true, false].map((val) => (
-          <button
+          <Button
+            variant="secondary"
+            size="sm"
             key={String(val)}
             onClick={() => handleToggle(val)}
-            className={`flex-1 py-2.5 rounded-xl text-sm font-medium transition-all ${
-              form.had_activity === val ? "text-white shadow-sm" : "bg-[#F5F5FF] text-[#8B8BA5]"
+            className={`flex-1 text-sm font-medium transition-all ${
+              form.had_activity === val ? "bg-gradient-to-r from-[#C4A9FF] to-[#FF9ECD] text-white" : "bg-[#F5F5FF] text-[#8B8BA5]"
             }`}
-            style={form.had_activity === val ? { background: "linear-gradient(90deg, #C4A9FF, #FF9ECD)" } : {}}
           >
             {val ? "✓ Sí" : "✗ No"}
-          </button>
+          </Button>
         ))}
       </div>
 
@@ -57,22 +60,28 @@ export function Step4Activity({ form, onChange }: Props) {
             <div key={i} className="rounded-xl bg-[#F5E6FF] p-3 flex flex-col gap-2">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-[#4A4A6A]">{s.name}</span>
-                <button onClick={() => removeActivity(i)} className="text-xs text-[#FF6B9D] hover:opacity-70">
-                  Quitar
-                </button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => removeActivity(i)}
+                  className="text-xs text-[#8B8BA5] hover:text-[#C4A9FF] hover:opacity-70"
+                >
+                  <Trash size={16} />
+                </Button>
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {DURATIONS.map((d) => (
-                  <button
+                  <Button
+                    variant="secondary"
+                    size="sm"
                     key={d}
                     onClick={() => updateDuration(i, d)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
-                      s.duration === d ? "text-white" : "bg-white text-[#8B8BA5]"
+                    className={`text-xs font-medium transition-all ${
+                      s.duration === d ? "bg-gradient-to-r from-[#C4A9FF] to-[#FF9ECD] text-white" : "bg-[#F5F5FF] text-[#8B8BA5]"
                     }`}
-                    style={s.duration === d ? { background: "linear-gradient(90deg, #C4A9FF, #FF9ECD)" } : {}}
                   >
                     {d}min
-                  </button>
+                  </Button>
                 ))}
               </div>
             </div>
@@ -82,13 +91,15 @@ export function Step4Activity({ form, onChange }: Props) {
             <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">Añadir actividad</label>
             <div className="grid grid-cols-2 gap-2">
               {ACTIVITIES.map((a) => (
-                <button
+                <Button
+                  variant={form.activity_sessions.some(s => s.name === a.name) ? "primary" : "secondary"}
+                  size="sm"
                   key={a.name}
                   onClick={() => addActivity(a.name)}
-                  className="py-2 px-3 rounded-xl text-xs font-medium text-left bg-[#F5F5FF] text-[#8B8BA5] hover:bg-[#EDE6FF] hover:text-[#C4A9FF] transition-all"
+                  className={`text-xs font-medium text-left transition-all ${form.activity_sessions.some(s => s.name === a.name) ? "text-white" : "bg-[#F5F5FF] text-[#8B8BA5] hover:bg-[#EDE6FF] hover:text-[#C4A9FF]"}`}
                 >
                   + {a.name}
-                </button>
+                </Button>
               ))}
             </div>
           </div>

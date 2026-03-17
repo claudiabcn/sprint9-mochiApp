@@ -3,7 +3,7 @@ import { useAuth } from "@/features/auth/context/AuthContext";
 import { CheckinSection } from "@/features/checkin/components/CheckinSection";
 import { CheckinModal } from "@/features/checkin/components/CheckinModal";
 import { CheckinProvider } from "@/features/checkin/context/CheckinContext";
-import { HOME_TEXTS } from "../utils/homeTexts";
+import { HOME_TEXTS } from "@/features/home/utils/homeTexts";
 
 export function HomePage() {
   const { user } = useAuth();

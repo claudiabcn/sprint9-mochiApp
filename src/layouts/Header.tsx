@@ -3,6 +3,7 @@ import { useAuth } from "@/features/auth/context/AuthContext";
 import { signOut } from "@/features/auth/services/authService";
 import { useNavigate } from "react-router-dom";
 import { LAYOUT_TEXTS } from "./utils/layoutsTexts"; 
+import { Button } from "@/shared/components/Button";
 
 export function Header() {
   const { user } = useAuth();
@@ -48,13 +49,14 @@ export function Header() {
             {HEADER.GREETING(displayName)} 
           </span>
           
-          <button
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={handleSignOut}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm text-[#8B8BA5] hover:text-[#FF6B9D] hover:bg-[#FFF0F5] transition-all duration-200"
-            title={HEADER.LOGOUT_TOOLTIP}
+            className="flex items-center gap-1.5"
           >
             <LogOut size={15} />
-          </button>
+          </Button>
         </div>
       </div>
     </header>

@@ -1,8 +1,9 @@
 import { 
   type LoginFields, 
-  type LoginErrors, 
-} from "../utils/types";
-import { FALLBACK_MESSAGE, SUPABASE_ERROR_MAP} from "../utils/authTexts";
+  type LoginErrors 
+} from "@/features/auth/utils/authTypes";
+
+import { FALLBACK_MESSAGE, SUPABASE_ERROR_MAP } from "@/features/auth/utils/authTexts";
 
 export function validateLoginFields(values: LoginFields): LoginErrors {
   const errors: LoginErrors = {};

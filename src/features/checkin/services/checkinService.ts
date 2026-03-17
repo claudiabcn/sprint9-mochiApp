@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import type { CheckinFormState, SessionEntry } from "../utils/checkinTypes";
+import type { CheckinFormState, SessionEntry } from "@/features/checkin/utils/checkinTypes";
 
 export type Intensity = "None" | "Low" | "High";
 

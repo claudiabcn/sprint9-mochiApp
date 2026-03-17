@@ -1,5 +1,5 @@
-import { Intensity } from "../services/checkinService";
-import { CheckinFormState } from "./checkinTypes";
+import { Intensity } from "@/features/checkin/services/checkinService";
+import { CheckinFormState } from "@/features/checkin/utils/checkinTypes";
 
 export const CHECKIN_TEXTS = {
   INTENSITY_LABELS: {

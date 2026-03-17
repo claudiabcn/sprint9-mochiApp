@@ -1,6 +1,6 @@
-import { sliderToIntensity } from "../services/checkinService";
-import type { CheckinFormState } from "../utils/checkinTypes";
-import { CHECKIN_TEXTS } from "../utils/checkinTexts";
+import { sliderToIntensity } from "@/features/checkin/services/checkinService";
+import type { CheckinFormState } from "@/features/checkin/utils/checkinTypes";
+import { CHECKIN_TEXTS } from "@/features/checkin/utils/checkinTexts";
 
 function moodEmoji(value: number) {
   if (value === 0) return "😊";

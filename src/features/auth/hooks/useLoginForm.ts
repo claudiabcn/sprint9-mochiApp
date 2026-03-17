@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginWithUsername } from "../services/authService";
-import { validateLoginFields, type LoginFields, type LoginErrors } from "../utils/authErrors";
+import { loginWithUsername } from "@/features/auth/services/authService";
+import { validateLoginFields } from "@/features/auth/utils/authErrors";
+
+import { 
+  type LoginFields, 
+  type LoginErrors 
+} from "@/features/auth/utils/authTypes";
 
 export function useLoginForm() {
   const navigate = useNavigate();

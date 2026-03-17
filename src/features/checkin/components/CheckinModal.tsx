@@ -1,11 +1,12 @@
 import { X } from "lucide-react";
 import { createPortal } from "react-dom";
-import { useCheckinContext } from "../context/CheckinContext";
-import { Step1Dizziness } from "./Step1Dizziness";
-import { Step2Vestibular } from "./Step2Vestibular";
-import { Step3Physio } from "./Step3Physio";
-import { Step4Activity } from "./Step4Activity";
-import { Step5Summary } from "./Step5Summary";
+import { useCheckinContext } from "@/features/checkin/context/CheckinContext";
+import { Step1Dizziness } from "@/features/checkin/components/Step1Dizziness";
+import { Step2Vestibular } from "@/features/checkin/components/Step2Vestibular";
+import { Step3Physio } from "@/features/checkin/components/Step3Physio";
+import { Step4Activity } from "@/features/checkin/components/Step4Activity";
+import { Step5Summary } from "@/features/checkin/components/Step5Summary";
+import { Button } from "@/shared/components/Button";
 
 const STEP_TITLES = ["Vértigos", "Rehabilitación vestibular", "Fisioterapia", "Actividad física", "Resumen"];
 
@@ -29,9 +30,14 @@ export function CheckinModal() {
               <h2 className="text-lg font-bold text-[#4A4A6A]">Check-in Diario 🐰</h2>
               <p className="text-sm text-[#8B8BA5]">{STEP_TITLES[step - 1]}</p>
             </div>
-            <button onClick={close} className="text-[#8B8BA5] hover:text-[#4A4A6A] transition-colors">
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={close}
+              className="text-[#8B8BA5] hover:text-[#4A4A6A] transition-colors"
+            >
               <X size={18} />
-            </button>
+            </Button>
           </div>
 
           <div className="flex gap-1.5 mb-6">
@@ -59,29 +65,33 @@ export function CheckinModal() {
           )}
 
           <div className="flex gap-3 mt-6">
-            <button
+            <Button
+              variant="secondary"
+              size="md"
               onClick={step > 1 ? prev : close}
-              className="flex-1 py-3 rounded-2xl text-sm font-medium text-[#8B8BA5] bg-[#F5F5FF] hover:bg-[#EDE6FF] transition-colors"
+              className="flex-1 rounded-2xl text-sm font-medium"
             >
               {step > 1 ? "← Atrás" : "Cancelar"}
-            </button>
+            </Button>
             {step < totalSteps ? (
-              <button
+              <Button
+                variant="primary"
+                size="lg"
                 onClick={next}
-                className="flex-1 py-3 rounded-2xl text-sm font-semibold text-white hover:opacity-90 transition-all"
-                style={{ background: "linear-gradient(90deg, #C4A9FF 0%, #FF9ECD 100%)" }}
+                className="flex-1 rounded-2xl text-sm font-semibold"
               >
                 Siguiente →
-              </button>
+              </Button>
             ) : (
-              <button
+              <Button
+                variant="primary"
+                size="lg"
                 onClick={handleSave}
                 disabled={loading}
-                className="flex-1 py-3 rounded-2xl text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50 transition-all"
-                style={{ background: "linear-gradient(90deg, #C4A9FF 0%, #FF9ECD 100%)" }}
+                className="flex-1 rounded-2xl text-sm font-semibold disabled:opacity-50"
               >
-                {loading ? "Guardando..." : "Guardar Check-in"}
-              </button>
+                {loading ? "Guardando..." : "Guardar"}
+              </Button>
             )}
           </div>
         </div>
