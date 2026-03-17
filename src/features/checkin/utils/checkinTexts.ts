@@ -2,16 +2,30 @@ import { Intensity } from "@/features/checkin/services/checkinService";
 import { CheckinFormState } from "@/features/checkin/utils/checkinTypes";
 
 export const CHECKIN_TEXTS = {
+  MODAL_TITLE: "Check-in Diario 🐰",
+  STEP_TITLES: [
+    "Vértigos",
+    "Rehabilitación vestibular",
+    "Fisioterapia",
+    "Actividad física",
+    "Resumen",
+  ],
+  BUTTONS: {
+    BACK: "← Atrás",
+    CANCEL: "Cancelar",
+    NEXT: "Siguiente →",
+    SAVE: "Guardar",
+    SAVING: "Guardando...",
+  },
   INTENSITY_LABELS: {
     None: "Ninguno",
     Low: "Algunos",
     High: "Muchos",
   } as Record<Intensity, string>,
-  
   STEPS: {
     TITLE_DIZZINESS: "¿Cómo están los vértigos hoy?",
     TITLE_SESSIONS: "¿Qué actividades has hecho?",
-  }
+  },
 } as const;
 
 export const VESTIBULAR_CENTERS = [
@@ -29,11 +43,36 @@ export const PHYSIO_CENTERS = [
 
 export const ACTIVITIES = [
   { name: "Flexi", center_id: 8, center_name: "Casa", duration: 30 },
-  { name: "Padel", center_id: 8, center_name: "FES Padel Can Dragó", duration: 60 },
-  { name: "Twerk", center_id: 9, center_name: "Centre Cívic Sagrada Família", duration: 90 },
-  { name: "Dirigida", center_id: 10, center_name: "Eurofitness Can Dragó", duration: 45 },
-  { name: "Piscina", center_id: 10, center_name: "Eurofitness Can Dragó", duration: 45 },
-  { name: "Gym", center_id: 10, center_name: "Eurofitness Can Dragó", duration: 45 },
+  {
+    name: "Padel",
+    center_id: 8,
+    center_name: "FES Padel Can Dragó",
+    duration: 60,
+  },
+  {
+    name: "Twerk",
+    center_id: 9,
+    center_name: "Centre Cívic Sagrada Família",
+    duration: 90,
+  },
+  {
+    name: "Dirigida",
+    center_id: 10,
+    center_name: "Eurofitness Can Dragó",
+    duration: 45,
+  },
+  {
+    name: "Piscina",
+    center_id: 10,
+    center_name: "Eurofitness Can Dragó",
+    duration: 45,
+  },
+  {
+    name: "Gym",
+    center_id: 10,
+    center_name: "Eurofitness Can Dragó",
+    duration: 45,
+  },
 ];
 
 export const DURATIONS = [15, 30, 45, 60, 75, 90];
