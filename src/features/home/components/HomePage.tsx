@@ -3,12 +3,13 @@ import { useAuth } from "@/features/auth/context/AuthContext";
 import { CheckinSection } from "@/features/checkin/components/CheckinSection";
 import { CheckinModal } from "@/features/checkin/components/CheckinModal";
 import { CheckinProvider } from "@/features/checkin/context/CheckinContext";
+import { HighlightsSection } from "@/features/home/components/HighlightsSection";
 import { HOME_TEXTS } from "@/features/home/utils/homeTexts";
 
 export function HomePage() {
   const { user } = useAuth();
   const { WELCOME, SECTIONS, CARDS, CARD_ACTION } = HOME_TEXTS;
-  
+
   const username = user?.user_metadata?.username ?? "amiga";
 
   return (
@@ -32,9 +33,7 @@ export function HomePage() {
             </span>
             {SECTIONS.STATS_TITLE}
           </h2>
-          <div className="rounded-2xl bg-white/60 border border-[#C4A9FF]/20 px-6 py-8 text-center text-sm text-[#8B8BA5]">
-            {SECTIONS.STATS_PLACEHOLDER}
-          </div>
+          <HighlightsSection />
         </section>
 
         <section className="mb-8">

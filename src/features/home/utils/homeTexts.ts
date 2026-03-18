@@ -5,25 +5,34 @@ export const HOME_TEXTS = {
   },
   SECTIONS: {
     STATS_TITLE: "Destacados",
-    STATS_PLACEHOLDER: "📊 PENDIENTE DE HACER.",
     CHECKIN_TITLE: "Check-in Diario",
   },
   CARDS: [
-    { 
-      label: "Mochiterapia", 
+    {
+      label: "Mochiterapia",
       desc: "Tu espacio de bienestar emocional",
-      icon: "🐰" 
+      icon: "🐰",
     },
-    { 
-      label: "Re-evolución", 
+    {
+      label: "Re-evolución",
       desc: "Observa tu progreso y mejora continua",
-      icon: "🐰" 
+      icon: "🐰",
     },
-    { 
-      label: "Tipos de ejercicio de rehabilitación", 
+    {
+      label: "Tipos de ejercicio de rehabilitación",
       desc: "Explora y practica tus ejercicios",
-      icon: "🐰" 
+      icon: "🐰",
     },
   ],
   CARD_ACTION: "Entrar →",
+} as const;
+
+export const HIGHLIGHTS_TEXTS = {
+  STRETCHING_DAYS: "en racha estirando",
+  VESTIBULAR_DAYS: "en racha rehabilitación vestibular",
+  DIZZINESS_FREE_DAYS: "en racha sin vértigos",
+  AVG_EXERCISE: "media ejercicio diario",
+  UNIT_DAYS: "días",
+  UNIT_MIN: "min",
+  ERROR: "No se pudieron cargar los destacados.",
 } as const;
