@@ -33,6 +33,8 @@ export function Step5Summary({ form }: Props) {
     ? PHYSIO_CENTERS.find((c) => c.id === form.physio_session!.center_id)?.name
     : null;
 
+  const [dizziness, vestibular, physio, activity] = CHECKIN_TEXTS.STEP_TITLES;
+
   return (
     <div className="flex flex-col gap-3">
       <p className="text-sm text-[#8B8BA5] mb-1">
@@ -41,25 +43,25 @@ export function Step5Summary({ form }: Props) {
 
       <div className="rounded-2xl bg-[#FAFAFF] border border-[#C4A9FF]/20 px-4 py-2">
         <Row
-          label="Vértigos"
+          label={dizziness}
           value={CHECKIN_TEXTS.INTENSITY_LABELS[form.dizziness_intensity]}
         />
         <Row
-          label="Rehabilitación vestibular"
+          label={vestibular}
           value={formatSessionSummary(
             vestibularCenter,
             form.vestibular_session?.duration,
           )}
         />
         <Row
-          label="Fisioterapia"
+          label={physio}
           value={formatSessionSummary(
             physioCenter,
             form.physio_session?.duration,
           )}
         />
         <Row
-          label="Actividad física"
+          label={activity}
           value={formatActivitySummary(form.activity_sessions)}
         />
       </div>

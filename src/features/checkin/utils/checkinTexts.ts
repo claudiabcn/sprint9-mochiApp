@@ -25,6 +25,7 @@ export const CHECKIN_TEXTS = {
   STEPS: {
     TITLE_DIZZINESS: "¿Cómo están los vértigos hoy?",
     TITLE_SESSIONS: "¿Qué actividades has hecho?",
+    SUMMARY_SUBTITLE: "Revisa tu check-in antes de guardar",
   },
 } as const;
 
