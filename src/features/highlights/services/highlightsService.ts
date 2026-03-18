@@ -1,58 +1,25 @@
 import { supabase } from "@/lib/supabase";
 import type { HighlightsData } from "@/features/highlights/utils/highlightsTypes";
+import { calcStreak, avgMinutesByDay } from "@/features/highlights/utils/highlightsUtils";
 
-function formatDateLocal(date: Date): string {
-  const yyyy = date.getFullYear();
-  const mm = String(date.getMonth() + 1).padStart(2, "0");
-  const dd = String(date.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
+interface SessionFilters {
+  service_type?: string;
+  name?: string;
+  excludeName?: string;
 }
 
-function calcStreak(datesWithRecord: Set<string>): number {
-  const today = new Date();
-  const todayStr = formatDateLocal(today);
-
-  const startOffset = datesWithRecord.has(todayStr) ? 0 : 1;
-  let streak = 0;
-
-  for (let i = startOffset; i < 365; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() - i);
-    const dateStr = formatDateLocal(d);
-
-    if (datesWithRecord.has(dateStr)) {
-      streak++;
-    } else {
-      break;
-    }
-  }
-
-  return streak;
-}
-
-async function getStretchingStreak(userId: string): Promise<number> {
-  const { data, error } = await supabase
+async function getSessionStreak(userId: string, filters: SessionFilters): Promise<number> {
+  let query = supabase
     .from("sessions")
     .select("date_recorded")
-    .eq("user_id", userId)
-    .eq("service_type", "PhysicalActivity")
-    .eq("name", "Flexi");
+    .eq("user_id", userId);
 
-  if (error) throw new Error("Error al obtener días de estiramientos");
+  if (filters.service_type) query = query.eq("service_type", filters.service_type);
+  if (filters.name) query = query.eq("name", filters.name);
+  if (filters.excludeName) query = query.neq("name", filters.excludeName);
 
-  const dates = new Set((data ?? []).map((r) => r.date_recorded));
-  return calcStreak(dates);
-}
-
-async function getVestibularStreak(userId: string): Promise<number> {
-  const { data, error } = await supabase
-    .from("sessions")
-    .select("date_recorded")
-    .eq("user_id", userId)
-    .eq("service_type", "VestibularRehabilitation");
-
-  if (error)
-    throw new Error("Error al obtener días de rehabilitación vestibular");
+  const { data, error } = await query;
+  if (error) throw new Error("Error al obtener la racha de sesiones");
 
   const dates = new Set((data ?? []).map((r) => r.date_recorded));
   return calcStreak(dates);
@@ -66,13 +33,11 @@ async function getDizzinessFreeDays(userId: string): Promise<number> {
 
   if (error) throw new Error("Error al obtener los datos de vértigos");
 
-  const noDizzinessDates = new Set(
-    (data ?? [])
-      .filter((r) => r.intensity === "None")
-      .map((r) => r.date_recorded),
+  const dates = new Set(
+    (data ?? []).filter((r) => r.intensity === "None").map((r) => r.date_recorded),
   );
 
-  return calcStreak(noDizzinessDates);
+  return calcStreak(dates);
 }
 
 async function getAvgExerciseMinutes(userId: string): Promise<number> {
@@ -84,36 +49,17 @@ async function getAvgExerciseMinutes(userId: string): Promise<number> {
     .neq("name", "Flexi");
 
   if (error) throw new Error("Error al obtener minutos de ejercicio");
-
-  const records = data ?? [];
-  if (records.length === 0) return 0;
-
-  const byDay = new Map<string, number>();
-  for (const r of records) {
-    byDay.set(r.date_recorded, (byDay.get(r.date_recorded) ?? 0) + r.duration);
-  }
-
-  const total = Array.from(byDay.values()).reduce((a, b) => a + b, 0);
-  return Math.round(total / byDay.size);
+  return avgMinutesByDay(data ?? []);
 }
 
 export async function getHighlights(userId: string): Promise<HighlightsData> {
-  const [
-    stretchingDays,
-    vestibularDays,
-    dizzinessFreeDays,
-    avgExerciseMinutes,
-  ] = await Promise.all([
-    getStretchingStreak(userId),
-    getVestibularStreak(userId),
-    getDizzinessFreeDays(userId),
-    getAvgExerciseMinutes(userId),
-  ]);
+  const [stretchingDays, vestibularDays, dizzinessFreeDays, avgExerciseMinutes] =
+    await Promise.all([
+      getSessionStreak(userId, { service_type: "PhysicalActivity", name: "Flexi" }),
+      getSessionStreak(userId, { service_type: "VestibularRehabilitation" }),
+      getDizzinessFreeDays(userId),
+      getAvgExerciseMinutes(userId),
+    ]);
 
-  return {
-    stretchingDays,
-    vestibularDays,
-    dizzinessFreeDays,
-    avgExerciseMinutes,
-  };
+  return { stretchingDays, vestibularDays, dizzinessFreeDays, avgExerciseMinutes };
 }

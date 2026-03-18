@@ -1,7 +1,7 @@
 export const HOME_TEXTS = {
   WELCOME: {
     TITLE: (name: string) => `¡Bienvenida de vuelta, ${name}! 🐰`,
-    SUBTITLE: "Sigue adelante con tu rutina diaria. ¡Cada paso cuenta!",
+    SUBTITLE: "Sigue adelante con tu rutina diaria.",
   },
   SECTIONS: {
     STATS_TITLE: "Destacados",
