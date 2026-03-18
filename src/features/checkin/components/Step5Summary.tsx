@@ -1,6 +1,13 @@
-import { VESTIBULAR_CENTERS, PHYSIO_CENTERS } from "@/features/checkin/utils/checkinTexts";
+import {
+  VESTIBULAR_CENTERS,
+  PHYSIO_CENTERS,
+  CHECKIN_TEXTS,
+} from "@/features/checkin/utils/checkinTexts";
 import type { CheckinFormState } from "@/features/checkin/utils/checkinTypes";
-import { CHECKIN_TEXTS } from "@/features/checkin/utils/checkinTexts";
+import {
+  formatSessionSummary,
+  formatActivitySummary,
+} from "@/features/checkin/utils/checkinUtils";
 
 interface Props {
   form: CheckinFormState;
@@ -17,7 +24,9 @@ function Row({ label, value }: { label: string; value: string }) {
 
 export function Step5Summary({ form }: Props) {
   const vestibularCenter = form.vestibular_session
-    ? VESTIBULAR_CENTERS.find((c) => c.id === form.vestibular_session!.center_id)?.name
+    ? VESTIBULAR_CENTERS.find(
+        (c) => c.id === form.vestibular_session!.center_id,
+      )?.name
     : null;
 
   const physioCenter = form.physio_session
@@ -26,28 +35,32 @@ export function Step5Summary({ form }: Props) {
 
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-sm text-[#8B8BA5] mb-1">Revisa tu check-in antes de guardar</p>
+      <p className="text-sm text-[#8B8BA5] mb-1">
+        Revisa tu check-in antes de guardar
+      </p>
 
       <div className="rounded-2xl bg-[#FAFAFF] border border-[#C4A9FF]/20 px-4 py-2">
-        <Row label="Vértigos" 
-  value={CHECKIN_TEXTS.INTENSITY_LABELS[form.dizziness_intensity]} />
+        <Row
+          label="Vértigos"
+          value={CHECKIN_TEXTS.INTENSITY_LABELS[form.dizziness_intensity]}
+        />
         <Row
           label="Rehabilitación vestibular"
-          value={form.had_vestibular && vestibularCenter
-            ? `${vestibularCenter} · ${form.vestibular_session!.duration} min`
-            : "No"}
+          value={formatSessionSummary(
+            vestibularCenter,
+            form.vestibular_session?.duration,
+          )}
         />
         <Row
           label="Fisioterapia"
-          value={form.had_physio && physioCenter
-            ? `${physioCenter} · ${form.physio_session!.duration} min`
-            : "No"}
+          value={formatSessionSummary(
+            physioCenter,
+            form.physio_session?.duration,
+          )}
         />
         <Row
           label="Actividad física"
-          value={form.had_activity && form.activity_sessions.length > 0
-            ? form.activity_sessions.map((s) => `${s.name} ${s.duration}min`).join(", ")
-            : "No"}
+          value={formatActivitySummary(form.activity_sessions)}
         />
       </div>
     </div>

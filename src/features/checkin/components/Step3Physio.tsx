@@ -1,27 +1,40 @@
-import { PHYSIO_CENTERS, DURATIONS } from "@/features/checkin/utils/checkinTexts";
-import { type CheckinFormState } from "@/features/checkin/utils/checkinTypes";
+import {
+  PHYSIO_CENTERS,
+  DURATIONS,
+} from "@/features/checkin/utils/checkinTexts";
+import type { CheckinStepProps } from "@/features/checkin/utils/checkinTypes";
+import { getActiveButtonClass } from "@/features/checkin/utils/checkinUtils";
 import { Button } from "@/shared/components/Button";
 
-interface Props {
-  form: CheckinFormState;
-  onChange: (patch: Partial<CheckinFormState>) => void;
-}
 
-export function Step3Physio({ form, onChange }: Props) {
+
+export function Step3Physio({ form, onChange }: CheckinStepProps) {
   const session = form.physio_session;
 
   const handleToggle = (yes: boolean) => {
     onChange({
       had_physio: yes,
       physio_session: yes
-        ? { service_type: "Physiotherapy", name: "Fisioterapia", center_id: PHYSIO_CENTERS[0].id, duration: PHYSIO_CENTERS[0].duration, attended: true }
+        ? {
+            service_type: "Physiotherapy",
+            name: "Fisioterapia",
+            center_id: PHYSIO_CENTERS[0].id,
+            duration: PHYSIO_CENTERS[0].duration,
+            attended: true,
+          }
         : null,
     });
   };
 
   const handleCenter = (centerId: number) => {
     const center = PHYSIO_CENTERS.find((c) => c.id === centerId)!;
-    onChange({ physio_session: { ...session!, center_id: center.id, duration: center.duration } });
+    onChange({
+      physio_session: {
+        ...session!,
+        center_id: center.id,
+        duration: center.duration,
+      },
+    });
   };
 
   const handleDuration = (duration: number) => {
@@ -39,9 +52,7 @@ export function Step3Physio({ form, onChange }: Props) {
             size="sm"
             key={String(val)}
             onClick={() => handleToggle(val)}
-            className={`flex-1 text-sm font-medium transition-all ${
-              form.had_physio === val ? "bg-gradient-to-r from-[#C4A9FF] to-[#FF9ECD] text-white" : "bg-[#F5F5FF] text-[#8B8BA5]"
-            }`}
+            className={`flex-1 text-sm font-medium transition-all ${getActiveButtonClass(form.had_physio === val)}`}
           >
             {val ? "✓ Sí" : "✗ No"}
           </Button>
@@ -51,7 +62,9 @@ export function Step3Physio({ form, onChange }: Props) {
       {form.had_physio && session && (
         <div className="flex flex-col gap-4 pt-1">
           <div>
-            <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">Centro</label>
+            <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">
+              Centro
+            </label>
             <div className="grid grid-cols-2 gap-2">
               {PHYSIO_CENTERS.map((c) => (
                 <Button
@@ -59,7 +72,7 @@ export function Step3Physio({ form, onChange }: Props) {
                   size="sm"
                   key={c.id}
                   onClick={() => handleCenter(c.id)}
-                  className={`text-xs font-medium text-left transition-all ${session.center_id === c.id ? "text-white" : "bg-[#F5F5FF] text-[#8B8BA5] border border-transparent"}`}
+                  className={`text-xs font-medium text-left transition-all ${getActiveButtonClass(session.center_id === c.id)}`}
                 >
                   {c.name}
                 </Button>
@@ -67,7 +80,9 @@ export function Step3Physio({ form, onChange }: Props) {
             </div>
           </div>
           <div>
-            <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">Duración</label>
+            <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">
+              Duración
+            </label>
             <div className="flex flex-wrap gap-2">
               {DURATIONS.map((d) => (
                 <Button
@@ -75,9 +90,7 @@ export function Step3Physio({ form, onChange }: Props) {
                   size="sm"
                   key={d}
                   onClick={() => handleDuration(d)}
-                  className={`text-xs font-medium transition-all ${
-                    session.duration === d ? "bg-gradient-to-r from-[#C4A9FF] to-[#FF9ECD] text-white" : "bg-[#F5F5FF] text-[#8B8BA5]"
-                  }`}
+                  className={`text-xs font-medium transition-all ${getActiveButtonClass(session.duration === d)}`}
                 >
                   {d} min
                 </Button>

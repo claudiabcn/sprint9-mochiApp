@@ -35,3 +35,8 @@ export interface Center {
   id: number;
   name: string;
 }
+
+export interface CheckinStepProps {
+  form: CheckinFormState;
+  onChange: (patch: Partial<CheckinFormState>) => void;
+}
