@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { LoginForm } from "@/features/auth/components/LoginForm";
 import { AuthGuard } from "@/features/auth/components/AuthGuard";
 import { HomePage } from "@/features/home/components/HomePage";
+import { MochiterapiaPage } from "@/features/mochiterapia/components/MochiterapiaPage";
 
 export function AppRoutes() {
   return (
@@ -19,6 +20,14 @@ export function AppRoutes() {
         element={
           <AuthGuard>
             <HomePage />
+          </AuthGuard>
+        }
+      />
+      <Route
+        path="/mochiterapia"
+        element={
+          <AuthGuard>
+            <MochiterapiaPage />
           </AuthGuard>
         }
       />

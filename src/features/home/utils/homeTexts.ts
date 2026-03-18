@@ -1,7 +1,7 @@
 export const HOME_TEXTS = {
   WELCOME: {
     TITLE: (name: string) => `¡Bienvenida de vuelta, ${name}! 🐰`,
-    SUBTITLE: "Sigue adelante con tu rutina diaria.",
+    SUBTITLE: "Sigue adelante con tu rutina diaria. ¡Cada paso cuenta!",
   },
   SECTIONS: {
     STATS_TITLE: "Destacados",
@@ -12,19 +12,30 @@ export const HOME_TEXTS = {
       label: "Mochiterapia",
       desc: "Tu espacio de bienestar emocional",
       icon: "🐰",
+      route: "/mochiterapia",
     },
     {
       label: "Re-evolución",
       desc: "Observa tu progreso y mejora continua",
       icon: "🐰",
+      route: "/re-evolucion",
     },
     {
       label: "Tipos de ejercicio de rehabilitación",
       desc: "Explora y practica tus ejercicios",
       icon: "🐰",
+      route: "/ejercicios",
     },
   ],
   CARD_ACTION: "Entrar →",
 } as const;
 
-
+export const HIGHLIGHTS_TEXTS = {
+  STRETCHING_DAYS: "en racha estirando",
+  VESTIBULAR_DAYS: "en racha rehabilitación vestibular",
+  DIZZINESS_FREE_DAYS: "días sin vértigos",
+  AVG_EXERCISE: "media ejercicio diario",
+  UNIT_DAYS: "días",
+  UNIT_MIN: "min",
+  ERROR: "No se pudieron cargar los destacados.",
+} as const;
