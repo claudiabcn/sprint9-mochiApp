@@ -20,15 +20,16 @@ export interface SessionEntry {
   attended: boolean;
 }
 
-export interface CheckinFormState { 
-   dizziness_intensity: Intensity;
-   dizziness_slider: number; 
-   had_vestibular: boolean; 
-   vestibular_session: SessionEntry | null; 
-   had_physio: boolean; 
-   physio_session: SessionEntry | null; 
-   had_activity: boolean; 
-   activity_sessions: SessionEntry[]; }
+export interface CheckinFormState {
+  dizziness_intensity: Intensity;
+  dizziness_slider: number;
+  had_vestibular: boolean;
+  vestibular_session: SessionEntry | null;
+  had_physio: boolean;
+  physio_session: SessionEntry | null;
+  had_activity: boolean;
+  activity_sessions: SessionEntry[];
+}
 
 export interface Center {
   id: number;

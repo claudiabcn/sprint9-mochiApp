@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useAuth } from "@/features/auth/context/AuthContext";
-import { getTodayCheckin, saveFullCheckin, Intensity } from "@/features/checkin/services/checkinService";
+import { saveFullCheckin} from "@/features/checkin/services/checkinService";
+import { getTodayCheckin} from "@/features/checkin/services/dizzinessService";
+import type { Intensity } from "@/features/checkin/utils/checkinTypes";
 import { INITIAL_STATE } from "@/features/checkin/utils/checkinTexts";
 import { type CheckinFormState } from "@/features/checkin/utils/checkinTypes";
 

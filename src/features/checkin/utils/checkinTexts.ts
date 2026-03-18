@@ -1,4 +1,4 @@
-import { Intensity } from "@/features/checkin/services/checkinService";
+import { Intensity } from "@/features/checkin/utils/checkinTypes";
 import { CheckinFormState } from "@/features/checkin/utils/checkinTypes";
 
 export const CHECKIN_TEXTS = {
