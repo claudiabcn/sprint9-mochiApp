@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import type { HighlightsData } from "@/features/home/utils/highlightsTypes";
+import type { HighlightsData } from "@/features/highlights/utils/highlightsTypes";
 
 function formatDateLocal(date: Date): string {
   const yyyy = date.getFullYear();
@@ -7,7 +7,6 @@ function formatDateLocal(date: Date): string {
   const dd = String(date.getDate()).padStart(2, "0");
   return `${yyyy}-${mm}-${dd}`;
 }
-
 
 function calcStreak(datesWithRecord: Set<string>): number {
   const today = new Date();

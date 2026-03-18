@@ -3,7 +3,7 @@ import { useAuth } from "@/features/auth/context/AuthContext";
 import { CheckinSection } from "@/features/checkin/components/CheckinSection";
 import { CheckinModal } from "@/features/checkin/components/CheckinModal";
 import { CheckinProvider } from "@/features/checkin/context/CheckinContext";
-import { HighlightsSection } from "@/features/home/components/HighlightsSection";
+import { HighlightsSection } from "@/features/highlights/components/HighlightsSection";
 import { HOME_TEXTS } from "@/features/home/utils/homeTexts";
 
 export function HomePage() {
