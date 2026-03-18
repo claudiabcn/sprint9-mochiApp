@@ -1,23 +1,22 @@
 import { supabase } from "@/lib/supabase";
-import type { CheckinFormState, SessionEntry } from "@/features/checkin/utils/checkinTypes";
-
-export type Intensity = "None" | "Low" | "High";
-
-export interface DizzinessRecord {
-  id: number;
-  user_id: string;
-  date_recorded: string;
-  intensity: Intensity;
-}
+import type {
+  CheckinFormState,
+  SessionEntry,
+} from "@/features/checkin/utils/checkinTypes";
+import {
+  DizzinessRecord,
+  type Intensity,
+} from "@/features/checkin/utils/checkinTypes";
 
 export function sliderToIntensity(value: number): Intensity {
   if (value === 0) return "None";
   if (value === 1) return "Low";
-  return "High"; 
+  return "High";
 }
 
-
-export async function getTodayCheckin(userId: string): Promise<DizzinessRecord | null> {
+export async function getTodayCheckin(
+  userId: string,
+): Promise<DizzinessRecord | null> {
   const today = new Date().toISOString().split("T")[0];
   const { data, error } = await supabase
     .from("dizziness")
@@ -25,38 +24,47 @@ export async function getTodayCheckin(userId: string): Promise<DizzinessRecord |
     .eq("user_id", userId)
     .eq("date_recorded", today)
     .maybeSingle();
-    
+
   if (error) throw new Error("Error al obtener el check-in de hoy");
   return data;
 }
 
-export async function saveFullCheckin(userId: string, form: CheckinFormState): Promise<void> {
+export async function saveFullCheckin(
+  userId: string,
+  form: CheckinFormState,
+): Promise<void> {
   const today = new Date().toISOString().split("T")[0];
-
 
   const { error: dizzinessError } = await supabase
     .from("dizziness")
     .upsert(
-      { user_id: userId, date_recorded: today, intensity: form.dizziness_intensity },
-      { onConflict: "user_id,date_recorded" }
+      {
+        user_id: userId,
+        date_recorded: today,
+        intensity: form.dizziness_intensity,
+      },
+      { onConflict: "user_id,date_recorded" },
     );
   if (dizzinessError) throw new Error("Error al guardar los vértigos");
 
-
   const sessions: SessionEntry[] = [];
-  if (form.had_vestibular && form.vestibular_session) sessions.push(form.vestibular_session);
-  if (form.had_physio && form.physio_session) sessions.push(form.physio_session);
+  if (form.had_vestibular && form.vestibular_session)
+    sessions.push(form.vestibular_session);
+  if (form.had_physio && form.physio_session)
+    sessions.push(form.physio_session);
   if (form.had_activity) sessions.push(...form.activity_sessions);
 
   if (sessions.length === 0) return;
-
 
   await supabase
     .from("sessions")
     .delete()
     .eq("user_id", userId)
     .eq("date_recorded", today)
-    .in("service_type", sessions.map((s) => s.service_type));
+    .in(
+      "service_type",
+      sessions.map((s) => s.service_type),
+    );
 
   const rows = sessions.map((s) => ({
     user_id: userId,
