@@ -69,7 +69,7 @@ export function Header() {
               />
             </svg>
           </div>
-          <span className="font-bold text-sm" style={{ color: "#C4A9FF" }}>
+          <span className="font-bold text-lg" style={{ color: "#C4A9FF" }}>
             {HEADER.APP_NAME}
           </span>
         </Link>

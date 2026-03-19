@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { MainLayout } from "@/layouts/MainLayout";
+import { HeroBanner } from "@/shared/components/HeroBanner";
 import { getAllPhrases } from "@/features/mochiterapia/services/mochiterapiaService";
 import { shuffle } from "@/features/mochiterapia/utils/mochiterapiaUtils";
 import { MOCHITERAPIA_TEXTS, MOCHI_PHOTOS } from "@/features/mochiterapia/utils/mochiterapiaTexts";
@@ -45,13 +46,7 @@ export function MochiterapiaPage() {
 
   return (
     <MainLayout>
-      <section
-        className="w-full rounded-3xl px-8 py-7 mb-8 text-white"
-        style={{ background: "linear-gradient(135deg, #C4A9FF 0%, #FF9ECD 100%)" }}
-      >
-        <h1 className="text-2xl font-bold mb-1">{MOCHITERAPIA_TEXTS.TITLE}</h1>
-        <p className="text-white/80 text-sm">{MOCHITERAPIA_TEXTS.SUBTITLE}</p>
-      </section>
+      <HeroBanner title={MOCHITERAPIA_TEXTS.TITLE} subtitle={MOCHITERAPIA_TEXTS.SUBTITLE} />
 
       {state.status === "loading" && (
         <div className="w-full mx-auto animate-pulse flex flex-col gap-4">

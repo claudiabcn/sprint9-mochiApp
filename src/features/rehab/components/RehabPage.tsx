@@ -3,6 +3,7 @@ import { useRehabData } from "@/features/rehab/hooks/useRehabData";
 import { useRehabPagination } from "@/features/rehab/hooks/useRehabPagination";
 import { useRehabToggle } from "@/features/rehab/hooks/useRehabToggle";
 import { REHAB_TEXTS } from "@/features/rehab/utils/rehabTexts";
+import { HeroBanner } from "@/shared/components/HeroBanner";
 import { ProgressBar } from "@/features/rehab/components/ProgressBar";
 import { ExerciseGroup } from "@/features/rehab/components/ExerciseGroup";
 
@@ -13,13 +14,7 @@ export function RehabPage() {
 
   return (
     <MainLayout>
-      <section
-        className="w-full rounded-3xl px-8 py-7 mb-8 text-white"
-        style={{ background: "linear-gradient(135deg, #C4A9FF 0%, #FF9ECD 100%)" }}
-      >
-        <h1 className="text-2xl font-bold mb-1">{REHAB_TEXTS.TITLE}</h1>
-        <p className="text-white/80 text-sm">{REHAB_TEXTS.SUBTITLE}</p>
-      </section>
+      <HeroBanner title={REHAB_TEXTS.TITLE} subtitle={REHAB_TEXTS.SUBTITLE} />
 
       {data.loading && (
         <div className="flex flex-col gap-4 animate-pulse">
