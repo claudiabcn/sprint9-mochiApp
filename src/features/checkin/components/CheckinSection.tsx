@@ -19,7 +19,7 @@ export function CheckinSection() {
               ✓ Registrado hoy · {CHECKIN_TEXTS.INTENSITY_LABELS[form.dizziness_intensity]}
             </p>
           ) : (
-            <p className="text-xs text-[#8B8BA5]">Registra tu estado y actividad diaria</p>
+            <p className="text-xs text-[#8B8BA5]">Registra como fue tu día.</p>
           )}
         </div>
         <button
