@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { MainLayout } from "@/layouts/MainLayout";
 import { getAllPhrases } from "@/features/mochiterapia/services/mochiterapiaService";
 import { shuffle } from "@/features/mochiterapia/utils/mochiterapiaUtils";
@@ -11,7 +11,6 @@ type PageState =
 
 export function MochiterapiaPage() {
   const [state, setState] = useState<PageState>({ status: "loading" });
-  const touchStartX = useRef<number | null>(null);
 
   useEffect(() => {
     getAllPhrases()
@@ -37,17 +36,6 @@ export function MochiterapiaPage() {
     });
   }, []);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) goTo(diff > 0 ? 1 : -1);
-    touchStartX.current = null;
-  };
-
   const currentPhrase = state.status === "ready"
     ? state.phrases[state.index % state.phrases.length]
     : "";
@@ -67,9 +55,9 @@ export function MochiterapiaPage() {
 
       {state.status === "loading" && (
         <div className="w-full max-w-sm mx-auto animate-pulse flex flex-col gap-4">
-          <div className="w-full aspect-square rounded-3xl bg-[#F5E6FF]" />
           <div className="h-4 w-3/4 rounded bg-[#F5E6FF] mx-auto" />
           <div className="h-4 w-1/2 rounded bg-[#F5E6FF] mx-auto" />
+          <div className="w-full aspect-square rounded-3xl bg-[#F5E6FF]" />
         </div>
       )}
 
@@ -82,16 +70,15 @@ export function MochiterapiaPage() {
           <button
             onClick={() => goTo(-1)}
             aria-label={MOCHITERAPIA_TEXTS.PREV}
-            className="hidden sm:flex w-10 h-10 rounded-full border border-[#C4A9FF]/30 items-center justify-center text-[#C4A9FF] hover:bg-[#F5E6FF] transition-colors flex-shrink-0"
+            className="flex w-10 h-10 rounded-full border border-[#C4A9FF]/30 items-center justify-center text-[#C4A9FF] hover:bg-[#F5E6FF] transition-colors flex-shrink-0"
           >
             ←
           </button>
 
-          <div
-            className="flex-1 flex flex-col items-center gap-5"
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-          >
+          <div className="flex-1 flex flex-col items-center gap-5">
+            <p className="text-center text-[#4A4A6A] text-base font-medium leading-relaxed px-2">
+              "{currentPhrase}"
+            </p>
             <div className="w-full rounded-3xl overflow-hidden border border-[#C4A9FF]/20 shadow-sm">
               <img
                 src={currentPhoto}
@@ -99,15 +86,12 @@ export function MochiterapiaPage() {
                 className="w-full aspect-square object-cover"
               />
             </div>
-            <p className="text-center text-[#4A4A6A] text-base font-medium leading-relaxed px-2">
-              "{currentPhrase}"
-            </p>
           </div>
 
           <button
             onClick={() => goTo(1)}
             aria-label={MOCHITERAPIA_TEXTS.NEXT}
-            className="hidden sm:flex w-10 h-10 rounded-full border border-[#C4A9FF]/30 items-center justify-center text-[#C4A9FF] hover:bg-[#F5E6FF] transition-colors flex-shrink-0"
+            className="flex w-10 h-10 rounded-full border border-[#C4A9FF]/30 items-center justify-center text-[#C4A9FF] hover:bg-[#F5E6FF] transition-colors flex-shrink-0"
           >
             →
           </button>

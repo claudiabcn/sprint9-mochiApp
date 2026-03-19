@@ -3,6 +3,7 @@ import { LoginForm } from "@/features/auth/components/LoginForm";
 import { AuthGuard } from "@/features/auth/components/AuthGuard";
 import { HomePage } from "@/features/home/components/HomePage";
 import { MochiterapiaPage } from "@/features/mochiterapia/components/MochiterapiaPage";
+import { RehabPage } from "@/features/rehab/components/RehabPage";
 
 export function AppRoutes() {
   return (
@@ -28,6 +29,14 @@ export function AppRoutes() {
         element={
           <AuthGuard>
             <MochiterapiaPage />
+          </AuthGuard>
+        }
+      />
+      <Route
+        path="/ejercicios"
+        element={
+          <AuthGuard>
+            <RehabPage />
           </AuthGuard>
         }
       />
