@@ -27,6 +27,11 @@ export const CHECKIN_TEXTS = {
     TITLE_SESSIONS: "¿Qué actividades has hecho?",
     SUMMARY_SUBTITLE: "Revisa tu check-in antes de guardar",
   },
+  HOME: {
+    GREETING: "¿Qué tal hoy?",
+    STATUS_DONE: "✓ Registrado hoy",
+    STATUS_PENDING: "Registra como fue tu día.",
+  },
 } as const;
 
 export const VESTIBULAR_CENTERS = [

@@ -20,11 +20,18 @@ export function StreakCard({ value, label, icon, iconBg, barColor, goal = 7 }: S
         </div>
       </div>
       <div>
-        <div className="h-[5px] rounded-full bg-[#F5F0FF] overflow-hidden">
+        <div className="relative h-[6px] rounded-full bg-[#F5F0FF] overflow-hidden">
           <div
             className="h-full rounded-full transition-all duration-500"
             style={{ width: `${pct}%`, background: barColor }}
           />
+          {Array.from({ length: goal - 1 }, (_, i) => (
+            <div
+              key={i}
+              className="absolute top-0 h-full w-[2px] bg-white/60"
+              style={{ left: `${((i + 1) / goal) * 100}%` }}
+            />
+          ))}
         </div>
         <div className="flex justify-between mt-1">
           <span className="text-[11px] text-[#C4A9FF]/60">0</span>
@@ -45,7 +52,7 @@ export function SkeletonStreak() {
           <div className="h-3 w-24 rounded bg-[#F5E6FF]" />
         </div>
       </div>
-      <div className="h-[5px] rounded-full bg-[#F5E6FF]" />
+      <div className="h-[6px] rounded-full bg-[#F5E6FF]" />
     </div>
   );
 }

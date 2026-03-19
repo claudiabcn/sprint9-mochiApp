@@ -13,15 +13,19 @@ export function CheckinSection() {
         onClick={open}
       >
         <div>
-          <h3 className="font-semibold text-[#4A4A6A] text-sm mb-0.5">¿Qué tal hoy?</h3>
-          {todayDone ? (
-            <p className="text-xs text-[#C4A9FF] font-medium">
-              ✓ Registrado hoy · {CHECKIN_TEXTS.INTENSITY_LABELS[form.dizziness_intensity]}
-            </p>
-          ) : (
-            <p className="text-xs text-[#8B8BA5]">Registra como fue tu día.</p>
-          )}
-        </div>
+  <h3 className="font-semibold text-[#4A4A6A] text-sm mb-0.5">
+    {CHECKIN_TEXTS.HOME.GREETING}
+  </h3>
+  {todayDone ? (
+    <p className="text-xs text-[#C4A9FF] font-medium">
+      {CHECKIN_TEXTS.HOME.STATUS_DONE} · {CHECKIN_TEXTS.INTENSITY_LABELS[form.dizziness_intensity]}
+    </p>
+  ) : (
+    <p className="text-xs text-[#8B8BA5]">
+      {CHECKIN_TEXTS.HOME.STATUS_PENDING}
+    </p>
+  )}
+</div>
         <button
           onClick={(e) => { e.stopPropagation(); open(); }}
           className="flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold text-white transition-all hover:opacity-90"
