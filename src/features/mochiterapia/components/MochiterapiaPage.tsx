@@ -54,7 +54,7 @@ export function MochiterapiaPage() {
       </section>
 
       {state.status === "loading" && (
-        <div className="w-full max-w-sm mx-auto animate-pulse flex flex-col gap-4">
+        <div className="w-full mx-auto animate-pulse flex flex-col gap-4">
           <div className="h-4 w-3/4 rounded bg-[#F5E6FF] mx-auto" />
           <div className="h-4 w-1/2 rounded bg-[#F5E6FF] mx-auto" />
           <div className="w-full aspect-square rounded-3xl bg-[#F5E6FF]" />
@@ -66,7 +66,7 @@ export function MochiterapiaPage() {
       )}
 
       {state.status === "ready" && (
-        <div className="flex items-center gap-3 w-full max-w-sm mx-auto">
+        <div className="flex items-center gap-3 w-full mx-auto">
           <button
             onClick={() => goTo(-1)}
             aria-label={MOCHITERAPIA_TEXTS.PREV}
