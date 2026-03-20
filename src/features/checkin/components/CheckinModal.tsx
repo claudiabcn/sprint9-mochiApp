@@ -52,9 +52,7 @@ export function CheckinModal() {
             <h2 className="text-lg font-bold text-[#4A4A6A]">
               {CHECKIN_TEXTS.MODAL_TITLE}
             </h2>
-            <p className="text-sm text-[#8B8BA5]">
-              {CHECKIN_TEXTS.STEP_TITLES[step - 1]}
-            </p>
+
           </div>
           <Button
             variant="secondary"
@@ -90,7 +88,7 @@ export function CheckinModal() {
         </div>
 
         {error && (
-          <p className="text-xs text-[#FF6B9D] text-center bg-[#FFF0F5] rounded-xl px-4 py-2 mt-4">
+          <p className="text-sm text-[#FF6B9D] text-center bg-[#FFF0F5] rounded-xl px-4 py-2 mt-4">
             {error}
           </p>
         )}

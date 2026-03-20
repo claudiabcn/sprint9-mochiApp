@@ -1,9 +1,13 @@
 import { useEffect, useState, useCallback } from "react";
 import { MainLayout } from "@/layouts/MainLayout";
 import { HeroBanner } from "@/shared/components/HeroBanner";
+import { Button } from "@/shared/components/Button";
 import { getAllPhrases } from "@/features/mochiterapia/services/mochiterapiaService";
 import { shuffle } from "@/features/mochiterapia/utils/mochiterapiaUtils";
-import { MOCHITERAPIA_TEXTS, MOCHI_PHOTOS } from "@/features/mochiterapia/utils/mochiterapiaTexts";
+import {
+  MOCHITERAPIA_TEXTS,
+  MOCHI_PHOTOS,
+} from "@/features/mochiterapia/utils/mochiterapiaTexts";
 
 type PageState =
   | { status: "loading" }
@@ -37,16 +41,21 @@ export function MochiterapiaPage() {
     });
   }, []);
 
-  const currentPhrase = state.status === "ready"
-    ? state.phrases[state.index % state.phrases.length]
-    : "";
-  const currentPhoto = state.status === "ready"
-    ? state.photos[state.index % state.photos.length]
-    : "";
+  const currentPhrase =
+    state.status === "ready"
+      ? state.phrases[state.index % state.phrases.length]
+      : "";
+  const currentPhoto =
+    state.status === "ready"
+      ? state.photos[state.index % state.photos.length]
+      : "";
 
   return (
     <MainLayout>
-      <HeroBanner title={MOCHITERAPIA_TEXTS.TITLE} subtitle={MOCHITERAPIA_TEXTS.SUBTITLE} />
+      <HeroBanner
+        title={MOCHITERAPIA_TEXTS.TITLE}
+        subtitle={MOCHITERAPIA_TEXTS.SUBTITLE}
+      />
 
       {state.status === "loading" && (
         <div className="w-full mx-auto animate-pulse flex flex-col gap-4">
@@ -62,13 +71,14 @@ export function MochiterapiaPage() {
 
       {state.status === "ready" && (
         <div className="flex items-center gap-3 w-full mx-auto">
-          <button
+          <Button
+            variant="circle"
+            size="md"
             onClick={() => goTo(-1)}
-            aria-label={MOCHITERAPIA_TEXTS.PREV}
-            className="flex w-10 h-10 rounded-full border border-[#C4A9FF]/30 items-center justify-center text-[#C4A9FF] hover:bg-[#F5E6FF] transition-colors flex-shrink-0"
+            ariaLabel={MOCHITERAPIA_TEXTS.PREV}
           >
             ←
-          </button>
+          </Button>
 
           <div className="flex-1 flex flex-col items-center gap-5">
             <p className="text-center text-[#4A4A6A] text-base font-medium leading-relaxed px-2">
@@ -83,13 +93,14 @@ export function MochiterapiaPage() {
             </div>
           </div>
 
-          <button
+          <Button
+            variant="circle"
+            size="md"
             onClick={() => goTo(1)}
-            aria-label={MOCHITERAPIA_TEXTS.NEXT}
-            className="flex w-10 h-10 rounded-full border border-[#C4A9FF]/30 items-center justify-center text-[#C4A9FF] hover:bg-[#F5E6FF] transition-colors flex-shrink-0"
+            ariaLabel={MOCHITERAPIA_TEXTS.NEXT}
           >
             →
-          </button>
+          </Button>
         </div>
       )}
     </MainLayout>

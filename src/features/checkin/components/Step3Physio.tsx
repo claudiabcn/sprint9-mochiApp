@@ -41,18 +41,19 @@ export function Step3Physio({ form, onChange }: CheckinStepProps) {
     onChange({ physio_session: { ...session!, duration } });
   };
 
-  return (
+return (
     <div className="flex flex-col gap-5">
       <p className="text-sm text-[#8B8BA5]">¿Has ido a fisioterapia hoy?</p>
 
+      {/* TAMAÑO MD: La pregunta principal */}
       <div className="flex gap-3">
         {[true, false].map((val) => (
           <Button
             variant="secondary"
-            size="sm"
+            size="md"
             key={String(val)}
             onClick={() => handleToggle(val)}
-            className={`flex-1 text-sm font-medium transition-all ${getActiveButtonClass(form.had_physio === val)}`}
+            className={`flex-1 text-md font-medium transition-all ${getActiveButtonClass(form.had_physio === val)}`}
           >
             {val ? "✓ Sí" : "✗ No"}
           </Button>
@@ -62,32 +63,33 @@ export function Step3Physio({ form, onChange }: CheckinStepProps) {
       {form.had_physio && session && (
         <div className="flex flex-col gap-4 pt-1">
           <div>
-            <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">
+            <label className="text-sm font-medium text-[#4A4A6A] mb-2 block">
               Centro
             </label>
             <div className="grid grid-cols-2 gap-2">
               {PHYSIO_CENTERS.map((c) => (
                 <Button
                   variant={session.center_id === c.id ? "primary" : "secondary"}
-                  size="sm"
+                  size="sm" // TAMAÑO SM: Centros (equilibrio entre legibilidad y espacio)
                   key={c.id}
                   onClick={() => handleCenter(c.id)}
-                  className={`text-xs font-medium text-left transition-all ${getActiveButtonClass(session.center_id === c.id)}`}
+                  className={`text-sm font-medium transition-all ${getActiveButtonClass(session.center_id === c.id)}`}
                 >
                   {c.name}
                 </Button>
               ))}
             </div>
           </div>
+
           <div>
-            <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">
+            <label className="text-sm font-medium text-[#4A4A6A] mb-2 block">
               Duración
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {DURATIONS.map((d) => (
                 <Button
                   variant="secondary"
-                  size="sm"
+                  size="sm" // TAMAÑO XS: Para que los minutos no saturen la vista
                   key={d}
                   onClick={() => handleDuration(d)}
                   className={`text-xs font-medium transition-all ${getActiveButtonClass(session.duration === d)}`}

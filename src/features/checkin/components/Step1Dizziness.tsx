@@ -22,10 +22,11 @@ export function Step1Dizziness({
   const percentage = (form.dizziness_slider / 2) * 100;
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-6">
+      {" "}
       <div>
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-sm font-medium text-[#4A4A6A]">
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-sm font-medium text-[#8B8BA5]">
             ¿Cómo están los vértigos hoy?
           </span>
           <span className="text-2xl transition-transform duration-300 scale-110">
@@ -47,8 +48,8 @@ export function Step1Dizziness({
           }}
         />
 
-        <div className="flex justify-center mt-4">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#C4A9FF] bg-[#C4A9FF]/10 px-3 py-1 rounded-full">
+        <div className="flex justify-center mt-6">
+          <span className="text-xs font-bold uppercase tracking-widest text-[#C4A9FF] bg-[#C4A9FF]/10 px-4 py-1.5 rounded-full">
             {CHECKIN_TEXTS.INTENSITY_LABELS[form.dizziness_intensity]}
           </span>
         </div>

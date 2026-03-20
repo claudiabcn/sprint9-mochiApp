@@ -37,20 +37,21 @@ export function Step4Activity({ form, onChange }: CheckinStepProps) {
     onChange({ activity_sessions: updated });
   };
 
-  return (
+return (
     <div className="flex flex-col gap-5">
       <p className="text-sm text-[#8B8BA5]">
         ¿Has hecho alguna actividad física hoy?
       </p>
 
+
       <div className="flex gap-3">
         {[true, false].map((val) => (
           <Button
             variant="secondary"
-            size="sm"
+            size="md" 
             key={String(val)}
             onClick={() => handleToggle(val)}
-            className={`flex-1 text-sm font-medium transition-all ${getActiveButtonClass(form.had_activity === val)}`}
+            className={`flex-1 text-md font-medium transition-all ${getActiveButtonClass(form.had_activity === val)}`}
           >
             {val ? "✓ Sí" : "✗ No"}
           </Button>
@@ -68,15 +69,17 @@ export function Step4Activity({ form, onChange }: CheckinStepProps) {
                 <span className="text-sm font-medium text-[#4A4A6A]">
                   {s.name}
                 </span>
+      
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => removeActivity(i)}
-                  className="text-xs text-[#8B8BA5] hover:text-[#C4A9FF] hover:opacity-70"
+                  className="text-[#8B8BA5] hover:text-red-400 transition-colors"
                 >
-                  <Trash size={16} />
+                  <Trash size={14} />
                 </Button>
               </div>
+              
               <div className="flex flex-wrap gap-1.5">
                 {DURATIONS.map((d) => (
                   <Button
@@ -94,7 +97,7 @@ export function Step4Activity({ form, onChange }: CheckinStepProps) {
           ))}
 
           <div>
-            <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">
+            <label className="text-sm font-medium text-[#4A4A6A] mb-2 block">
               Añadir actividad
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -105,7 +108,7 @@ export function Step4Activity({ form, onChange }: CheckinStepProps) {
                       ? "primary"
                       : "secondary"
                   }
-                  size="sm"
+                  size="sm" 
                   key={a.name}
                   onClick={() => addActivity(a.name)}
                   className={`text-xs font-medium text-left transition-all ${getActiveButtonClass(form.activity_sessions.some((s) => s.name === a.name))}`}

@@ -1,14 +1,14 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useAuth } from "@/features/auth/context/AuthContext";
-import { saveFullCheckin} from "@/features/checkin/services/checkinService";
-import { getTodayCheckin} from "@/features/checkin/services/dizzinessService";
+import { saveFullCheckin } from "@/features/checkin/services/checkinService";
+import { getTodayCheckin, getMissingCheckins } from "@/features/checkin/services/dizzinessService";
 import type { Intensity } from "@/features/checkin/utils/checkinTypes";
 import { INITIAL_STATE } from "@/features/checkin/utils/checkinTexts";
 import { type CheckinFormState } from "@/features/checkin/utils/checkinTypes";
 
 interface CheckinContextType {
   isOpen: boolean;
-  open: () => void;
+  open: (date?: string) => void;
   close: () => void;
   step: number;
   totalSteps: number;
@@ -20,6 +20,8 @@ interface CheckinContextType {
   loading: boolean;
   error: string | null;
   handleSave: () => Promise<void>;
+  missingDates: string[];
+  activeDate: string | null;
 }
 
 const CheckinContext = createContext<CheckinContextType | undefined>(undefined);
@@ -33,32 +35,41 @@ export function CheckinProvider({ children }: { children: ReactNode }) {
   const [todayDone, setTodayDone] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [missingDates, setMissingDates] = useState<string[]>([]);
+  const [activeDate, setActiveDate] = useState<string | null>(null);
 
   useEffect(() => {
-  if (!user) return;
-  getTodayCheckin(user.id).then((r) => {
-    if (!r) return;
-    setTodayDone(true);
-    
-    const intensityToSlider: Record<string, number> = {
-      "None": 0,
-      "Low": 1,
-      "High": 2
-    };
+    if (!user) return;
+    getTodayCheckin(user.id).then((r) => {
+      if (!r) return;
+      setTodayDone(true);
+      const intensityToSlider: Record<string, number> = { None: 0, Low: 1, High: 2 };
+      setForm((prev) => ({
+        ...prev,
+        dizziness_intensity: r.intensity as Intensity,
+        dizziness_slider: intensityToSlider[r.intensity] ?? 0,
+      }));
+    });
 
-    setForm((prev) => ({
-      ...prev,
-      dizziness_intensity: r.intensity as Intensity,
-      dizziness_slider: intensityToSlider[r.intensity] ?? 0,
-    }));
-  });
-}, [user]);
+    getMissingCheckins(user.id).then(setMissingDates);
+  }, [user]);
 
   const patch = (partial: Partial<CheckinFormState>) =>
     setForm((prev) => ({ ...prev, ...partial }));
 
-  const open = () => { setError(null); setStep(1); setIsOpen(true); };
-  const close = () => setIsOpen(false);
+  const open = (date?: string) => {
+    setError(null);
+    setStep(1);
+    setActiveDate(date ?? null);
+    setForm(INITIAL_STATE);
+    setIsOpen(true);
+  };
+
+  const close = () => {
+    setIsOpen(false);
+    setActiveDate(null);
+  };
+
   const next = () => setStep((s) => Math.min(s + 1, TOTAL_STEPS));
   const prev = () => setStep((s) => Math.max(s - 1, 1));
 
@@ -67,8 +78,12 @@ export function CheckinProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     setError(null);
     try {
-      await saveFullCheckin(user.id, form);
-      setTodayDone(true);
+      await saveFullCheckin(user.id, form, activeDate ?? undefined);
+      if (!activeDate) {
+        setTodayDone(true);
+      } else {
+        setMissingDates((prev) => prev.filter((d) => d !== activeDate));
+      }
       close();
     } catch {
       setError("No se pudo guardar el check-in. Inténtalo de nuevo");
@@ -83,6 +98,7 @@ export function CheckinProvider({ children }: { children: ReactNode }) {
       step, totalSteps: TOTAL_STEPS, next, prev,
       form, patch,
       todayDone, loading, error, handleSave,
+      missingDates, activeDate,
     }}>
       {children}
     </CheckinContext.Provider>

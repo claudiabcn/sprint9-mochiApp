@@ -49,10 +49,10 @@ export function Step2Vestibular({ form, onChange }: CheckinStepProps) {
         {[true, false].map((val) => (
           <Button
             variant="secondary"
-            size="sm"
+            size="md"
             key={String(val)}
             onClick={() => handleToggle(val)}
-            className={`flex-1 text-sm font-medium transition-all ${getActiveButtonClass(form.had_vestibular === val)}`}
+            className={`flex-1 text-md font-medium transition-all ${getActiveButtonClass(form.had_vestibular === val)}`}
           >
             {val ? "✓ Sí" : "✗ No"}
           </Button>
@@ -62,7 +62,7 @@ export function Step2Vestibular({ form, onChange }: CheckinStepProps) {
       {form.had_vestibular && session && (
         <div className="flex flex-col gap-4 pt-1">
           <div>
-            <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">
+            <label className="text-sm font-medium text-[#4A4A6A] mb-2 block">
               Centro
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -72,7 +72,7 @@ export function Step2Vestibular({ form, onChange }: CheckinStepProps) {
                   size="sm"
                   key={c.id}
                   onClick={() => handleCenter(c.id)}
-                  className={`text-xs font-medium text-left transition-all ${getActiveButtonClass(session.center_id === c.id)}`}
+                  className={`text-sm font-medium text-left transition-all ${getActiveButtonClass(session.center_id === c.id)}`}
                 >
                   {c.name}
                 </Button>
@@ -81,17 +81,17 @@ export function Step2Vestibular({ form, onChange }: CheckinStepProps) {
           </div>
 
           <div>
-            <label className="text-xs font-medium text-[#4A4A6A] mb-2 block">
+            <label className="text-sm font-medium text-[#4A4A6A] mb-2 block">
               Duración
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {DURATIONS.map((d) => (
                 <Button
                   variant="secondary"
                   size="sm"
                   key={d}
                   onClick={() => handleDuration(d)}
-                  className={`text-xs font-medium transition-all ${getActiveButtonClass(session.duration === d)}`}
+                  className={`text-sm font-medium transition-all ${getActiveButtonClass(session.duration === d)}`}
                 >
                   {d} min
                 </Button>

@@ -29,8 +29,8 @@ export const CHECKIN_TEXTS = {
   },
   HOME: {
     GREETING: "¿Qué tal hoy?",
-    STATUS_DONE: "✓ Registrado hoy",
-    STATUS_PENDING: "Registra como fue tu día.",
+    STATUS_DONE: "✓ Check-in registrado hoy.",
+    STATUS_PENDING: "Check-in pendiente de registrar",
   },
 } as const;
 
@@ -59,7 +59,7 @@ export const ACTIVITIES = [
     name: "Twerk",
     center_id: 9,
     center_name: "Centre Cívic Sagrada Família",
-    duration: 90,
+    duration: 60,
   },
   {
     name: "Dirigida",
@@ -86,10 +86,16 @@ export const DURATIONS = [15, 30, 45, 60, 75, 90];
 export const INITIAL_STATE: CheckinFormState = {
   dizziness_intensity: "None",
   dizziness_slider: 0,
-  had_vestibular: false,
-  vestibular_session: null,
+  had_vestibular: true,
+  vestibular_session: {
+    service_type: "VestibularRehabilitation",
+    name: "Rehabilitación vestibular",
+    center_id: 4,
+    duration: 15,
+    attended: true,
+  },
   had_physio: false,
   physio_session: null,
-  had_activity: false,
+  had_activity: true,
   activity_sessions: [],
 };
