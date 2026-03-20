@@ -45,7 +45,7 @@ return (
     <div className="flex flex-col gap-5">
       <p className="text-sm text-[#8B8BA5]">¿Has ido a fisioterapia hoy?</p>
 
-      {/* TAMAÑO MD: La pregunta principal */}
+
       <div className="flex gap-3">
         {[true, false].map((val) => (
           <Button
@@ -70,7 +70,7 @@ return (
               {PHYSIO_CENTERS.map((c) => (
                 <Button
                   variant={session.center_id === c.id ? "primary" : "secondary"}
-                  size="sm" // TAMAÑO SM: Centros (equilibrio entre legibilidad y espacio)
+                  size="sm" 
                   key={c.id}
                   onClick={() => handleCenter(c.id)}
                   className={`text-sm font-medium transition-all ${getActiveButtonClass(session.center_id === c.id)}`}
@@ -89,7 +89,7 @@ return (
               {DURATIONS.map((d) => (
                 <Button
                   variant="secondary"
-                  size="sm" // TAMAÑO XS: Para que los minutos no saturen la vista
+                  size="sm" 
                   key={d}
                   onClick={() => handleDuration(d)}
                   className={`text-xs font-medium transition-all ${getActiveButtonClass(session.duration === d)}`}

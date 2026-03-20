@@ -46,7 +46,7 @@ export function HomePage() {
         </section>
 
         <section>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="hidden sm:grid sm:grid-cols-3 gap-4">
             {CARDS.map(({ label, desc, icon, route }) => (
               <div
                 key={label}
